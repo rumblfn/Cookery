@@ -1,5 +1,5 @@
-import { Header } from './components/header';
-import {Routes, Route} from 'react-router-dom';
+import { Header } from './components/Header/header';
+import { Routes, Route } from 'react-router-dom';
 import { HomePage } from './routes/HomePage';
 import { LoginPage } from './routes/LoginPage';
 import { ProfilePage } from './routes/ProfilePage';
@@ -23,21 +23,21 @@ export const App = () => {
         })
     }, []);
 
-  return (
-    <div className="app">
-        <Header/>
+    return (
         <div className="app">
-            <Routes>
-                <Route path="/login" element={<LoginPage />}/>
-                <Route path="/signup" element={<SignUp />}/>
-                <Route path="/profile" element={
-                    <PrivateRoute authed={authed}>
-                        <ProfilePage />
-                    </PrivateRoute>
-                }/>
-                <Route path="/*" element={<HomePage />}/>
-            </Routes>
+            <Header />
+            <div className="app">
+                <Routes>
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/profile" element={
+                        <PrivateRoute authed={authed}>
+                            <ProfilePage />
+                        </PrivateRoute>
+                    } />
+                    <Route path="/*" element={<HomePage />} />
+                </Routes>
+            </div>
         </div>
-    </div>
-);
+    );
 }
