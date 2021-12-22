@@ -2,11 +2,11 @@
     "product1": {
         "id": 1,
         "name": "Cheese",
-        "img": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fpngimg.com%2Fuploads%2Fcheese%2Fcheese_PNG11.png&imgrefurl=https%3A%2F%2Fru.crazypng.com%2F510.html&tbnid=1pWLAQ5Zr0v9hM&vet=12ahUKEwjvieXghfj0AhWDBncKHfKtDbcQMygGegUIARDKAQ..i&docid=WPUN3DX0LGJNvM&w=344&h=304&itg=1&q=cheese%20img&ved=2ahUKEwjvieXghfj0AhWDBncKHfKtDbcQMygGegUIARDKAQ"
+        "img": "https://pngimg.com/uploads/cheese/cheese_PNG11.png"
     },
     "product2": {
         "id": 2,
         "name": "Sousage",
-        "img": "https://www.google.com/imgres?imgurl=https%3A%2F%2Fpngimg.com%2Fuploads%2Fcheese%2Fcheese_PNG11.png&imgrefurl=https%3A%2F%2Fru.crazypng.com%2F510.html&tbnid=1pWLAQ5Zr0v9hM&vet=12ahUKEwigxJHtnPj0AhXeBXcKHZp-CvcQMygGegUIARDJAQ..i&docid=WPUN3DX0LGJNvM&w=344&h=304&itg=1&q=cheese%20img&ved=2ahUKEwigxJHtnPj0AhXeBXcKHZp-CvcQMygGegUIARDJAQ"
+        "img": "https://www.pngfind.com/pngs/m/232-2323907_download-sausage-png-images-background-transparent-background-sausage.png"
     }
 }
