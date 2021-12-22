@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -25,8 +25,16 @@ export const Registration = () => {
 
         try {
             await auth.createUserWithEmailAndPassword(email, password);
+
+            db.ref(email.match(/[^\.]/gi).join('')).set({
+                username: 'Your name',
+                mail: email,
+                profile_picture : 'https://picsum.photos/200'
+            });
+
             setEmail('')
             setPassword('')
+            
         } catch (error) {
             setError(error.message);
         }
