@@ -1,5 +1,6 @@
 [
     {
+        "time": "20min",
         "userId": 0,
         "id": 0,
         "title": "Пицца",
@@ -34,6 +35,7 @@
         "comments": []
     },
     {
+        "time": "20min",
         "userId": 0,
         "id": 1,
         "title": "Бургеры",
@@ -61,6 +63,7 @@
         "comments": []
     },
     {
+        "time": "20min",
         "userId": 0,
         "id": 2,
         "title": "Паста",
