@@ -26,12 +26,6 @@ export const Registration = () => {
         try {
             await auth.createUserWithEmailAndPassword(email, password);
 
-            db.ref(email.match(/[^\.]/gi).join('')).set({
-                username: 'Your name',
-                mail: email,
-                profile_picture : 'https://picsum.photos/200'
-            });
-
             setEmail('')
             setPassword('')
             

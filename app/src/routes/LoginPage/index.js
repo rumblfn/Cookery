@@ -1,9 +1,11 @@
-import { Login } from '../../components/Login/index'
+import { Login } from '../../components/Login/index';
+
+
 
 export const LoginPage = () => {
     return (
-        <div>
-            <Login/>
+        <div className='container'>
+            <Login />
         </div>
     )
 }
