@@ -1,4 +1,4 @@
-import { Header } from './components/header';
+import { Header } from './components/Header/header';
 import { Routes, Route } from 'react-router-dom';
 import { HomePage } from './routes/HomePage';
 import { LoginPage } from './routes/LoginPage';
@@ -8,6 +8,9 @@ import { PrivateRoute } from "./hocks/PrivateRoute";
 import { useEffect, useState } from 'react';
 import { auth } from './firebase/index';
 import './appStyles.css';
+import Recipes from './routes/Recipes/recipes.js';
+import { Footer } from './components/Footer/footer';
+
 
 export const App = () => {
     const [authed, setAuthed] = useState(false);
@@ -36,8 +39,12 @@ export const App = () => {
                         </PrivateRoute>
                     } />
                     <Route path="/*" element={<HomePage />} />
+                    <Route path="/recipes" element={<Recipes />} />
                 </Routes>
             </div>
+            <Footer />
         </div>
     );
 }
+
+

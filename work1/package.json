@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.4",
     "@testing-library/jest-dom": "^5.16.0",
     "@testing-library/react": "^11.2.7",
@@ -15,6 +16,7 @@
     "react-player": "^2.9.0",
     "react-router-dom": "^6.1.1",
     "react-scripts": "4.0.3",
+    "swiper": "^6.8.4",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

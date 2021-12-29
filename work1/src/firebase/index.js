@@ -7,11 +7,11 @@ const config = {
   storageBucket: "cookery-d67cf.appspot.com",
   messagingSenderId: "730742650012",
   appId: "1:730742650012:web:f5ff79c95f6c959e7be959",
+  databaseURL: "https://cookery-d67cf-default-rtdb.europe-west1.firebasedatabase.app",
   measurementId: "G-GY1FKZQB3K"
 };
 
 firebase.initializeApp(config);
-
 export const auth = firebase.auth();
 export const db = firebase.database();
 export const rootRef = db.ref('root');
