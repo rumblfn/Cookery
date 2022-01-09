@@ -46,12 +46,11 @@ export const ProfilePage = () => {
                 <div style={{
                     marginLeft: '2%',
                     marginTop: '3%'
-
                 }}>
-                    {/* <img style={{
+                    <img style={{
                         borderRadius: '15px'
                     }}
-                        src={userData.profile_picture} alt='profile' /> */}
+                        src={userData.profile_picture} alt='profile' />
                 </div>
             </div>
         </div>
