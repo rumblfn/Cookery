@@ -8,6 +8,8 @@ import { PrivateRoute } from "./hocks/PrivateRoute";
 import { useEffect, useState } from 'react';
 import { auth } from './firebase/index';
 import './appStyles.css';
+import { Footer } from './components/Footer/footer';
+
 
 export const App = () => {
     const [authed, setAuthed] = useState(false);
@@ -38,6 +40,9 @@ export const App = () => {
                     <Route path="/*" element={<HomePage />} />
                 </Routes>
             </div>
+            <Footer />
         </div>
     );
 }
+
+

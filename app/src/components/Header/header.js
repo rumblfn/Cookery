@@ -5,10 +5,10 @@ import './linkSpanStyle.css'
 
 export const Header = () => {
     return (
-        <Box sx={{ borderBottom: '1px solid black', height: '64px', m: 0, p: 0 }}>
+        <Box sx={{height: '64px', m: 0, p: 0, mb: 6}}>
             <AppBar className='container'
                 position="static"
-                sx={{ background: 'white', boxShadow: 'none', border: 'none' }}
+                sx={{ background: 'white', boxShadow: 'none'}}
             >
                 <Toolbar sx={{
                     display: "flex",
