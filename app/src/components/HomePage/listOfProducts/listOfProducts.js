@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import InputBase from "@mui/material/InputBase";
 
 
-const widget = ({products, changeSelectedState, filterState}) => {
+const widget = ({products, changeSelectedState, filterState, marginRightProp, maxHeightProp}) => {
     const checkProduct = (item) => {
         changeSelectedState(item)
     }
@@ -15,7 +15,7 @@ const widget = ({products, changeSelectedState, filterState}) => {
     }
 
     return (
-        <Paper elevation={3} style={{borderRadius: '7px', padding: '10px', marginRight: '2%', overflow: 'auto', maxHeight: '70vh'}}>
+        <Paper elevation={3} style={{borderRadius: '7px', padding: '10px', marginRight: marginRightProp, overflow: 'auto', maxHeight: maxHeightProp || '70vh'}}>
             <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '25px'}}>
                 <InputBase
                     onChange={filterProducts}
