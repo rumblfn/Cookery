@@ -32,7 +32,7 @@ export const Header = () => {
                             fontSize='24px'
                         >
                             <Link to="/login" style={{ textDecoration: 'none', color: 'white' }}>
-                                <span className='gradient-text'>Login / </span>
+                                <span className='gradient-text'>login / </span>
                             </Link>
                         </Typography>
                         <Typography

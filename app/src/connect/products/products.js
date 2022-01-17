@@ -4,7 +4,7 @@ import { toggleSelectedState } from "../../store/products";
 import { filterProducts } from "../../store/products";
 
 const mapStateToProps = (state) => ({
-    products: getProducts(state),
+    products: getProducts(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -17,127 +17,128 @@ const initialState = {
             selected: false
         },
         4: {
-            name: 'Тесто для пиццы',
+            name: 'тесто для пиццы',
             selected: false
         },
         5: {
-            name: 'Моцарелла',
+            name: 'моцарелла',
             selected: false
         },
         6: {
-            name: 'Манка',
+            name: 'манка',
             selected: false
         },
         7: {
-            name: 'Клубника',
+            name: 'клубника',
             selected: false
         },
         8: {
-            name: 'Кинза',
+            name: 'кинза',
             selected: false
         },
         9: {
-            name: 'Соус чили',
+            name: 'соус чили',
             selected: false
         },
         10: {
-            name: 'Бальзамический уксус',
+            name: 'бальзамический уксус',
             selected: false
         },
         11: {
-            name: 'Клубничный джем',
+            name: 'клубничный джем',
             selected: false
         },
         12: {
-            name: 'Красная луковица',
+            name: 'красная луковица',
             selected: false
         },
         13: {
-            name: 'Копченый бекон',
+            name: 'копченый бекон',
             selected: false
         },
         14: {
-            name: 'Филе куриной грудки',
+            name: 'филе куриной грудки',
             selected: false
         },
         15: {
-            name: 'Молотый кориандр',
+            name: 'молотый кориандр',
             selected: false
         },
         16: {
-            name: 'Тертый имбирь',
+            name: 'тертый имбирь',
             selected: false
         },
         17: {
-            name: 'Майонез',
+            name: 'майонез',
             selected: false
         },
         18: {
-            name: 'Смесь салатных листьев',
+            name: 'смесь салатных листьев',
             selected: false
         },
         19: {
-            name: 'Перец чили',
+            name: 'перец чили',
             selected: false
         },
         20: {
-            name: 'Лимон',
+            name: 'лимон',
             selected: false
         },
         21: {
-            name: 'Свежая мята',
+            name: 'свежая мята',
             selected: false
         },
         22: {
-            name: 'Огурец',
+            name: 'огурец',
             selected: false
         },
         23: {
-            name: 'Булочки с кунжутом',
+            name: 'булочки с кунжутом',
             selected: false
         },
         24: {
-            name: 'Цукини',
+            name: 'цукини',
             selected: false
         },
         25: {
-            name: 'Томаты черри',
+            name: 'томаты черри',
             selected: false
         },
         26: {
-            name: 'Консервированные томаты',
+            name: 'консервированные томаты',
             selected: false
         },
         27: {
-            name: 'Паста (пенне)',
+            name: 'паста (пенне)',
             selected: false
         },
         28: {
-            name: 'Чеснок',
+            name: 'чеснок',
             selected: false
         },
         29: {
-            name: 'Спаржа',
+            name: 'спаржа',
             selected: false
         },
         30: {
-            name: 'Пармезан',
+            name: 'пармезан',
             selected: false
         },
         31: {
-            name: 'Тобаско',
+            name: 'тобаско',
             selected: false
         },
         32: {
-            name: 'Соль',
+            name: 'соль',
             selected: false
         },
         33: {
-            name: 'Черный перец',
+            name: 'черный перец',
             selected: false
         }
     },
-    selectedProducts: {}
+    selectedProducts: {},
+    selectedProductsNames: []
 }
 
 export const productsReducer = (state = initialState, action) => {
@@ -161,9 +162,11 @@ export const productsReducer = (state = initialState, action) => {
             prods[action.payload].selected = !prods[action.payload].selected
 
             const newSelectedProducts = {}
+            const newSelectedProductsNames = []
             for (let item in initialState.products) {
                 if (initialState.products[item].selected) {
                     newSelectedProducts[item] = initialState.products[item]
+                    newSelectedProductsNames.push(initialState.products[item].name)
                 }
             }
             console.log(newSelectedProducts)
@@ -171,7 +174,8 @@ export const productsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 products: prods,
-                selectedProducts: newSelectedProducts
+                selectedProducts: newSelectedProducts,
+                selectedProductsNames: newSelectedProductsNames
             }
         }
         default: {

@@ -11,7 +11,7 @@ export const HomePage = () => {
                 display: 'grid',
                 gridTemplateColumns: '30% 70%'
             }}>
-                <ListOfProducts />
+                <ListOfProducts marginRightProp='2%' />
                 <div>
                     <ListOfSelectedProducts />
                     <ListOfReciepes />

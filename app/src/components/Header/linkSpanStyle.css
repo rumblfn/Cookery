@@ -1,6 +1,5 @@
 *{
     outline: none;
-    font-family: sans-serif;
 }
 @keyframes shutting {
     0% {
@@ -16,7 +15,7 @@
 
 .gradient-text {
     color: black;
-    font-family: 'Kaushan Script', cursive;
+    font-family: 'Kaushan Script', 'Roboto', sans-serif;
 }
 .heading{
     font-size: 40px;

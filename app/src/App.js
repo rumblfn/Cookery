@@ -1,5 +1,6 @@
 import { Header } from './components/Header/header';
 import { Routes, Route } from 'react-router-dom';
+import { RecipesPage } from './routes/RecipesPage';
 import { HomePage } from './routes/HomePage';
 import { LoginPage } from './routes/LoginPage';
 import { ProfilePage } from './routes/ProfilePage';
@@ -32,7 +33,8 @@ export const App = () => {
                 <Routes>
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignUp />} />
-                    <Route path="/profile" element={
+                    <Route path="/recipes/:recipeId" element={<RecipesPage />} />
+                    <Route path="/profile/*" element={
                         <PrivateRoute authed={authed}>
                             <ProfilePage />
                         </PrivateRoute>
