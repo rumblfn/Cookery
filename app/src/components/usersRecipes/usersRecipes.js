@@ -4,14 +4,15 @@ import { Link } from 'react-router-dom';
 
 export const widget = ({userRecipes}) => {
     return (
-        <div style={{ 
+        <div style={{
             marginTop: '32px',
         }}>
             <h3>Ваши рецепты</h3>
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: '30% 30% 30%',
-                justifyContent: 'space-between',
+                gridTemplateColumns: '32% 32% 32%',
+                rowGap: '2%',
+                columnGap: '2%',
             }}>
                 {userRecipes.map(item => (
                     <Link to={`/recipes/${item.id}`}>

@@ -14,6 +14,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { nanoid } from 'nanoid'
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export const widg = ({title, time, actions, products, description, setDescription, images, productsWithCount, addNewRecipe}) => {
     return (
@@ -202,7 +203,7 @@ export const WidgetSelectedProducts = ({title, time, actions, setActions, produc
 }
 
 
-export const Widget = ({title, setTitle, time ,setTime, products, lstOfProductsNames, setProducts}) => {
+export const Widget = ({title, setTitle, time ,setTime, products, lstOfProductsNames, setProducts, tablet}) => {
     let navigate = useNavigate();
 
     const checkForm = () => {
@@ -215,7 +216,7 @@ export const Widget = ({title, setTitle, time ,setTime, products, lstOfProductsN
     return (
         <div>
             <InputBase
-                    sx={{m: 2, width: '90%'}} 
+                    sx={{m: 2, width: '80%'}} 
                     style={{borderBottom: '2px solid black'}}
                     placeholder="Введите название"
                     onChange={(e) => {
@@ -251,7 +252,7 @@ export const Widget = ({title, setTitle, time ,setTime, products, lstOfProductsN
                         Дальше <ArrowForwardRoundedIcon/>
                     </Button>
                 </div>
-                <ListOfProducts maxHeightProp='60vh' />
+                {tablet ? <ListOfProducts maxHeightProp='100%' />: <ListOfProducts maxHeightProp='60vh' />}
         </div>
     )
 }
@@ -260,7 +261,51 @@ export const Widget = ({title, setTitle, time ,setTime, products, lstOfProductsN
 export const WidgetMain = selectedProductsConnect(Widget)
 
 
+const css_desc_main = { 
+    border: '2px solid black',
+    width: '100vw',
+    height: '100vh',
+    position: 'fixed',
+    top: '0px',
+    left: '0px',
+    display: 'flex',
+    justifyContent: 'center',
+    background: 'rgba(0,0,0,.5)',
+    overflow: 'auto'
+}
+
+const css_desc_block = {
+    backgroundColor: '#FFFFFF',
+    position: 'absolute',
+    top: '10%',
+    width: '50%',
+    minHeight: '60vh',
+    borderRadius: '20px',
+}
+
+const css_tablet_main = { 
+    border: '2px solid black',
+    width: '100vw',
+    height: '100vh',
+    position: 'fixed',
+    top: '0px',
+    left: '0px',
+    display: 'flex',
+    overflow: 'auto'
+}
+
+const css_tablet_block = {
+    backgroundColor: '#FFFFFF',
+    position: 'absolute',
+    top: '0',
+    width: '100%',
+    height: '100%',
+}
+
+
 export const CreateRecipeBlock = () => {
+    let css_1 = css_desc_main
+    let css_2 = css_desc_block
     const [title, setTitle] = useState('')
     const [time, setTime] = useState('')
     const [actions, setActions] = useState([])
@@ -269,27 +314,15 @@ export const CreateRecipeBlock = () => {
     const [products, setProducts] = useState({})
     const [productsWithCount, setProductsWithCount] = useState([])
 
+    const tablet = useMediaQuery('(max-width:768px)');
+    if (tablet) {
+        css_1 = css_tablet_main
+        css_2 = css_tablet_block
+    }
+
     return (
-        <div style={{ 
-            border: '2px solid black',
-            width: '100vw',
-            height: '100vh',
-            position: 'fixed',
-            top: '0px',
-            left: '0px',
-            display: 'flex',
-            justifyContent: 'center',
-            background: 'rgba(0,0,0,.5)',
-            overflow: 'auto'
-        }}>
-            <div style={{
-                backgroundColor: '#FFFFFF',
-                position: 'absolute',
-                top: '10%',
-                width: '50%',
-                minHeight: '60vh',
-                borderRadius: '20px',
-            }}>
+        <div style={css_1}>
+            <div style={css_2}>
                 <div style={{
                     position: 'absolute',
                     top: '16px',
@@ -334,6 +367,7 @@ export const CreateRecipeBlock = () => {
                             time={time}
                             setTime={setTime}
                             setProducts={setProducts}
+                            tablet={tablet}
                         />
                     } />
                 </Routes>
