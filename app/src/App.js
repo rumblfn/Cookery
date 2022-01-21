@@ -28,6 +28,7 @@ export const App = () => {
 
     return (
         <div className="app">
+            <div style={{minHeight: 'calc(100vh - 80px)'}}>
             <Header />
             <div className="app">
                 <Routes>
@@ -41,6 +42,7 @@ export const App = () => {
                     } />
                     <Route path="/*" element={<HomePage />} />
                 </Routes>
+            </div>
             </div>
             <Footer />
         </div>

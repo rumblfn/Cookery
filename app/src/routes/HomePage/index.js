@@ -6,32 +6,37 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 const css_desc = {
-                display: 'grid',
-                gridTemplateColumns: '30% 70%'
-            }
+    display: 'grid',
+    gridTemplateColumns: '3fr 7fr',
+    gap: '1%'
+}
 
 const css_laptop = {
-                display: 'grid',
-                gridTemplateColumns: '35% 65%'
-            }
+    display: 'grid',
+    gridTemplateColumns: '7fr 13fr',
+    gap: '1%'
+}
 
 const css_tablet = {
-                display: 'grid',
-                gridTemplateColumns: '40% 60%'
-            }
+    display: 'grid',
+    gridTemplateColumns: '2fr 3fr',
+    gap: '1%'
+}
 
 const css_tablet2 = {
-                display: 'grid',
-                gridTemplateColumns: '50% 50%'
-            }
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '1%'
+}
 
 const css_mobile = {
-                display: 'flex',
-                flexDirection: 'column',
-            }
+    display: 'flex',
+    flexDirection: 'column',
+}
 
 
 export const HomePage = () => {
+    let default_size = '70vh'
     let css = css_desc
     const laptop = useMediaQuery('(max-width:1024px)');
     const tablet = useMediaQuery('(max-width:768px)');
@@ -40,6 +45,7 @@ export const HomePage = () => {
 
     if (phone) {
         css = css_mobile;
+        default_size = '40vh'
     } else if (tablet2) {
         css = css_tablet2;
     } else if (tablet) {
@@ -50,7 +56,9 @@ export const HomePage = () => {
     return ( 
         <div className="container">
             <div style={css}>
-                <ListOfProducts marginRightProp='2%' />
+                <div style={{marginBottom: '24px'}}>
+                    <ListOfProducts marginRightProp='2%' maxHeightProp={default_size}/>
+                </div>
                 <div>
                     <ListOfSelectedProducts />
                     <ListOfReciepes />

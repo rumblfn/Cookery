@@ -9,9 +9,7 @@ import { ListOfSelectedProducts } from '../../components/HomePage/listOfSelected
 import { selectedProductsConnect } from '../../connect/selectedProducts/selectedProducts'
 import { recipesConnect } from "../../connect/recipes/recipes"
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { nanoid } from 'nanoid'
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -58,11 +56,11 @@ export const widg = ({title, time, actions, products, description, setDescriptio
                     </Button>
                 </Link>
             </div>
-            <div style={{display: 'flex'}}>
+            <div style={{display: 'flex', flexDirection: 'column'}}>
             <div style={{
                 background: 'rgba(0,0,0,.3)',
                 borderRadius: '5px',
-                width: '70%',
+                width: '100%',
                 height: '50vh',
                 border: '2px solid black',
                 display: 'flex',
@@ -72,7 +70,7 @@ export const widg = ({title, time, actions, products, description, setDescriptio
             }}>
                 <Button
                     style={{
-                        marginLeft: '16px',
+                        margin: '4%',
                         borderColor: "#000000",
                         color: '#000000',
                     }}
@@ -82,7 +80,7 @@ export const widg = ({title, time, actions, products, description, setDescriptio
                 </Button>
             </div>
             <TextareaAutosize
-                style={{border: 'none', marginLeft: '16px', marginBottom: '10px', maxHeight: '40vh'}}
+                style={{border: 'none', margin: '10px 16px', maxHeight: '40vh'}}
                 aria-label="textarea"
                 placeholder="Добавьте описание"
                 autoFocus
@@ -99,16 +97,15 @@ export const ToPost = recipesConnect(widg)
 
 export const WidgetSelectedProducts = ({title, time, actions, setActions, products, setProductsWithCount, productsWithCount}) => {
     let [newAction, setNewAction] = useState('');
-    let [iconImage, setIconImage] = useState(true)
     const inputRef = useRef(null);
+
     useEffect(() => {
         const newProds = [];
         for (const prod of products) {
             newProds.push([prod, '0'])
         }
-        setProductsWithCount(prevState => [...newProds])
+        setProductsWithCount([...newProds])
     }, [])
-    console.log(productsWithCount)
 
     return (
         <div style={{padding: '16px'}}>
@@ -140,23 +137,8 @@ export const WidgetSelectedProducts = ({title, time, actions, setActions, produc
                 <h4 style={{marginRight: '2%'}}>{title}</h4>
                 <h4 style={{marginRight: '2%'}}>{time}</h4>
             </div>
-            <Button 
-                style={{
-                    color: '#000000',
-                    border: 'none',
-                    marginBottom: '2%'
-                }}
-                variant="outlined" 
-                type="submit"
-                onClick={() => {
-                    if (iconImage) {
-                        setIconImage(false)
-                    } else {
-                        setIconImage(true)
-                    }
-                }}
-                >Выбранные продукты {iconImage ? <ArrowDropDownIcon/> : <ArrowDropUpIcon/>}
-            </Button>
+            <ListOfSelectedProducts 
+                creating={true}/>
             <h6 style={{marginTop: '8px'}}>Способ приготовления</h6>
             <div style={{display: 'flex'}}>
                 <InputBase
@@ -261,8 +243,7 @@ export const Widget = ({title, setTitle, time ,setTime, products, lstOfProductsN
 export const WidgetMain = selectedProductsConnect(Widget)
 
 
-const css_desc_main = { 
-    border: '2px solid black',
+const css_desc_main = {
     width: '100vw',
     height: '100vh',
     position: 'fixed',
@@ -283,15 +264,15 @@ const css_desc_block = {
     borderRadius: '20px',
 }
 
-const css_tablet_main = { 
-    border: '2px solid black',
+const css_tablet_main = {
     width: '100vw',
     height: '100vh',
     position: 'fixed',
     top: '0px',
     left: '0px',
     display: 'flex',
-    overflow: 'auto'
+    overflow: 'auto',
+    background: 'rgb(255,255,255)'
 }
 
 const css_tablet_block = {
@@ -320,6 +301,8 @@ export const CreateRecipeBlock = () => {
         css_2 = css_tablet_block
     }
 
+    document.body.style.overflow = "hidden";
+
     return (
         <div style={css_1}>
             <div style={css_2}>
@@ -328,7 +311,7 @@ export const CreateRecipeBlock = () => {
                     top: '16px',
                     right: '16px',
                 }}>
-                    <Link to='/profile'>
+                    <Link to='/profile' onClick={() => {document.body.style.overflow = "scroll";}}>
                         <CloseRoundedIcon style={{
                             color: '#000000',
                         }}/>
