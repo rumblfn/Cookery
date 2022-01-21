@@ -31,7 +31,8 @@ export const widget = ({recipes, selectedProducts}) => {
     return (
         <div style={{
             display: 'grid',
-            gridTemplateColumns: '50% 50%'
+            gridTemplateColumns: '48% 48%',
+            gap: '12px'
         }}>
             {newRecipes.map(item => (
                 <Link to={`/recipes/${item.id}`}>

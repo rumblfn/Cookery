@@ -100,7 +100,7 @@ export const Header = () => {
                             component="span"
                             fontSize='30px'
                         >
-                            <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+                            <Link to="/" onClick={() => setBarActive(false)} style={{ textDecoration: 'none', color: 'black' }}>
                                 <span className='gradient-text heading'>Cookery</span>
                             </Link>
                         </Typography>

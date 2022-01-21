@@ -53,6 +53,7 @@ export const ProfilePage = () => {
     const laptop = useMediaQuery('(max-width:1024px)');
     const tablet = useMediaQuery('(max-width:768px)');
     const tablet2 = useMediaQuery('(max-width:628px)');
+    const largePhone = useMediaQuery('(max-width:525px)');
     const phone = useMediaQuery('(max-width:425px)');
 
     if (phone) {
@@ -64,12 +65,13 @@ export const ProfilePage = () => {
     }else if (laptop) {
         css = css_laptop;
     }
+
     return (
         <div className='container'>
             <div style={css}>
                 <PersonalInformation/>
                 <CreateNewRecipe/>
-                <UserRecipes/>
+                <UserRecipes largePhone={largePhone}/>
                 <Routes>
                     <Route path="create/*" element={<CreateRecipeBlock />} />
                 </Routes>

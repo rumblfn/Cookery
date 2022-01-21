@@ -2,18 +2,17 @@ import { recipesConnect } from "../../connect/recipes/recipes"
 import Paper from '@mui/material/Paper';
 import { Link } from 'react-router-dom';
 
-export const widget = ({userRecipes}) => {
+export const widget = ({userRecipes, largePhone}) => {
+    const css = {display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2%'}
+    if (largePhone) {
+        css.gridTemplateColumns = '1fr 1fr'
+    }
     return (
         <div style={{
             marginTop: '32px',
         }}>
             <h3>Ваши рецепты</h3>
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: '32% 32% 32%',
-                rowGap: '2%',
-                columnGap: '2%',
-            }}>
+            <div style={css}>
                 {userRecipes.map(item => (
                     <Link to={`/recipes/${item.id}`}>
                         <Paper elevation={3} 
