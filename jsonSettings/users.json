@@ -1,5 +1,13 @@
 {
     "0": {
+<<<<<<< HEAD
         "recipes": ["0", "1", "2"]
     }
 }
+=======
+        "profile_picture": "https://picsum.photos/200",
+        "username": "admin",
+        "recipes": ["0", "1", "2"]
+    }
+}
+>>>>>>> 8b7b9b1fba76d05e258941867a74f42c0f0e471c

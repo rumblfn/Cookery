@@ -1,0 +1,12 @@
+{
+    "product1": {
+        "id": 1,
+        "name": "Cheese",
+        "img": "https://pngimg.com/uploads/cheese/cheese_PNG11.png"
+    },
+    "product2": {
+        "id": 2,
+        "name": "Sousage",
+        "img": "https://clipart-best.com/img/sausage/sausage-clip-art-22.png"
+    }
+}
