@@ -9,7 +9,7 @@ import { ListOfSelectedProducts } from '../../components/HomePage/listOfSelected
 import { selectedProductsConnect } from '../../connect/selectedProducts/selectedProducts'
 import { recipesConnect } from "../../connect/recipes/recipes"
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { nanoid } from 'nanoid'
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -105,7 +105,7 @@ export const WidgetSelectedProducts = ({title, time, actions, setActions, produc
             newProds.push([prod, '0']);
         }
         setProductsWithCount([...newProds]);
-    }, [])
+    }, [products, setProductsWithCount])
     
     return (
         <div style={{padding: '16px'}}>
@@ -189,7 +189,7 @@ export const WidgetSelectedProducts = ({title, time, actions, setActions, produc
 
 
 export const Widget = ({title, setTitle, time ,setTime, products, lstOfProductsNames, setProducts, tablet}) => {
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const checkForm = () => {
         if (title && time && Object.keys(products).length) {

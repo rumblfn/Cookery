@@ -1,18 +1,21 @@
-import { productsConnect } from '../../../connect/products/products'
+import { productsConnect } from '../../../connect/products/products';
 import CheckIcon from '@mui/icons-material/Check';
 import './style.css';
-import '../style.css'
+import '../style.css';
 import Paper from '@mui/material/Paper';
 import InputBase from "@mui/material/InputBase";
 import Axios from 'axios';
 import Button from '@mui/material/Button';
 import { useState, useEffect } from 'react';
 import { auth } from '../../../firebase';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProductsWithAPI } from '../../../store/products';
+import { nanoid } from 'nanoid';
 
 
-const Widget = productsConnect(({toggleClass, setInputValue, inputValue, checkEmail, products, changeSelectedState, filterState, marginRightProp, maxHeightProp}) => {
+const Widget = productsConnect(({isLoading, toggleClass, setInputValue, inputValue, checkEmail, products, changeSelectedState, filterState, marginRightProp, maxHeightProp}) => {
     let default_size = '70vh'
-    console.log(products)
 
     const checkProduct = (item) => {
         changeSelectedState(item)
@@ -54,20 +57,31 @@ const Widget = productsConnect(({toggleClass, setInputValue, inputValue, checkEm
                     sx={{m: 0, width: '100%', borderBottom: '2px solid black'}} placeholder="Введите название продукта"
                 />
             </div>
-            {Object.keys(products).map(elKey => (
-                <div key={elKey} className="block" onClick={() => checkProduct(elKey)}>
+            <div style={{}}>
+            {isLoading ? 
+            <div style={{textAlign: 'center', padding: '32px 0'}}>
+                <CircularProgress sx={{color: 'black'}}/>
+            </div> :
+            (Object.keys(products).map(elKey => (
+                <div key={nanoid()} className="block" onClick={() => checkProduct(elKey)}>
                     <p>{products[elKey].name}</p>
                     <CheckIcon hidden={!products[elKey].selected}/>
                 </div>))
-            }
+            )}
+            </div>
         </Paper>
         </>
     )
 })
 
 export const ListOfProducts = ({toggleClass}) => {
+    const dispatch = useDispatch();
+    const selector = useSelector((state) => state.products.products);
     const [checkEmail, setCheckEmail] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const initialProducts = {}
+
     useEffect(() => {
         try {
             if (auth.currentUser.email === 'toshamilgis@gmail.com') {
@@ -76,9 +90,24 @@ export const ListOfProducts = ({toggleClass}) => {
         } catch {
             setCheckEmail(false)
         }
+        if (Object.keys(selector).length === 0) {
+            setIsLoading(true)
+            Axios.get('http://localhost:3001/products/get').then((response) => {
+                for (let prod of response.data) {
+                    if (prod.name) {
+                        initialProducts[prod.id] = {
+                            name: prod.name,
+                            selected: Boolean(+prod.selected)
+                        }
+                    }
+                }
+                setIsLoading(false)
+                dispatch(addProductsWithAPI(initialProducts))
+            })
+        }
     }, [])
 
     return (
-        <Widget toggleClass={toggleClass} checkEmail={checkEmail} setInputValue={setInputValue} inputValue={inputValue}/>
+        <Widget isLoading={isLoading} toggleClass={toggleClass} checkEmail={checkEmail} setInputValue={setInputValue} inputValue={inputValue}/>
     )
 }

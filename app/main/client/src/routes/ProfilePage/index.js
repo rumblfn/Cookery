@@ -3,7 +3,9 @@ import { CreateNewRecipe } from '../../components/CreateNewRecipe/index'
 import { UserRecipes } from '../../components/usersRecipes/usersRecipes'
 import { CreateRecipeBlock } from '../../components/CreateRecipeBlock/index'
 import { Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { Navigate } from "react-router-dom";
 
 
 const css_desc = {
@@ -48,6 +50,8 @@ const css_mobile = {
 
 
 export const ProfilePage = () => {
+    const userData = useSelector((state) => state.user)
+    console.log(userData)
     let css = css_desc
 
     const laptop = useMediaQuery('(max-width:1024px)');
@@ -68,14 +72,18 @@ export const ProfilePage = () => {
 
     return (
         <div className='container'>
-            <div style={css}>
-                <PersonalInformation/>
+            {userData.loged ? <div style={css}>
+                <PersonalInformation 
+                    mail={userData.mail}
+                    name={userData.name}
+                    likes={userData.likes}
+                />
                 <CreateNewRecipe/>
                 <UserRecipes largePhone={largePhone}/>
                 <Routes>
                     <Route path="create/*" element={<CreateRecipeBlock />} />
                 </Routes>
-            </div>
+            </div> : <Navigate to='/login'/>}
         </div>
     )
 }

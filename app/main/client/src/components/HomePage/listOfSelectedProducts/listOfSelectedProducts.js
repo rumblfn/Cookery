@@ -7,7 +7,9 @@ import { useState } from 'react';
 import InputBase from "@mui/material/InputBase";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import '../style.css'
+import '../style.css';
+import './style.css';
+import { nanoid } from 'nanoid';
 
 export const ShowSelectedProducts = ({setIconImages, iconImage}) => {
     const show = () => {
@@ -46,8 +48,6 @@ export const SelectedProducts = selectedProductsConnect(({setToggleClass, produc
         console.log(productsWithCount)
     }
     
-
-    console.log(products)
     if (creating) {
         css = {display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2%',
             padding: '2%', marginBottom: '32px', boxShadow: '0px 5px 10px 2px rgba(34, 60, 80, 0.2)',
@@ -65,16 +65,30 @@ export const SelectedProducts = selectedProductsConnect(({setToggleClass, produc
         }
     }
 
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function toggleClass () {
+        await sleep(2000)
+        setToggleClass(false)
+    }
+
+    const changeStyle = () => {
+        setToggleClass(true)
+        toggleClass()
+    }
+
     if (!show) {
         if (Object.keys(products).length > 0) {
             return (
                 <div style={css}>
                     {Object.keys(products).map(elKey => (
                         <Paper elevation={2} style={css_paper}
-                                key={elKey}>
-                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                key={nanoid()}>
+                            <div className='button'>
                                 <p style={{marginTop: 'auto', marginBottom: 'auto'}}>{products[elKey].name}</p>
-                                <Button onClick={() => checkProduct(elKey)} 
+                                <Button className='closeIcon' onClick={() => checkProduct(elKey)} 
                                         style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px', color: 'black'}}>
                                     <CloseRoundedIcon style={{
                                         color: 'inherit',
@@ -95,7 +109,7 @@ export const SelectedProducts = selectedProductsConnect(({setToggleClass, produc
                 return (
                     <div className="selectedProductsEmpty" style={{
                         textAlign: 'center', margin: '0 32px', border: '2px dashed black', borderRadius: '8px'
-                    }} onClick={() => {setToggleClass(prevState => !prevState)}}>
+                    }} onClick={() => {changeStyle()}}>
                         <h6 style={{margin: '48px 0'}}>Список выбранных продуктов пуст</h6>
                     </div>)
             } else {

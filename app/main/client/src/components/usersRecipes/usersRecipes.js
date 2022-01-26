@@ -2,7 +2,7 @@ import { recipesConnect } from "../../connect/recipes/recipes"
 import Paper from '@mui/material/Paper';
 import { Link } from 'react-router-dom';
 
-export const widget = ({userRecipes, largePhone}) => {
+export const Widget = ({userRecipes, largePhone}) => {
     const css = {display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '2%'}
     if (largePhone) {
         css.gridTemplateColumns = '1fr 1fr'
@@ -28,4 +28,4 @@ export const widget = ({userRecipes, largePhone}) => {
     )
 }
 
-export const UserRecipes = recipesConnect(widget)
+export const UserRecipes = recipesConnect(Widget)

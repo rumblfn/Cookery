@@ -7,24 +7,13 @@ import { ProfilePage } from './routes/ProfilePage';
 import { SignUp } from './routes/RegistrationPage';
 import { PrivateRoute } from "./hocks/PrivateRoute";
 import { useEffect, useState } from 'react';
-import { auth } from './firebase/index';
 import './appStyles.css';
 import { Footer } from './components/Footer/footer';
+import { useSelector } from 'react-redux';
 
 
 export const App = () => {
-    const [authed, setAuthed] = useState(false);
-
-
-    useEffect(() => {
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                setAuthed(true);
-            } else {
-                setAuthed(false);
-            }
-        })
-    }, []);
+    const userIsLoged = useSelector((state) => state.user.loged)
 
     return (
         <div className="app">
@@ -36,7 +25,7 @@ export const App = () => {
                     <Route path="/signup" element={<SignUp />} />
                     <Route path="/recipes/:recipeId" element={<RecipesPage />} />
                     <Route path="/profile/*" element={
-                        <PrivateRoute authed={authed}>
+                        <PrivateRoute authed={userIsLoged}>
                             <ProfilePage />
                         </PrivateRoute>
                     } />

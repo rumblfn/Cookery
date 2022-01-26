@@ -1,25 +1,9 @@
 import Paper from '@mui/material/Paper';
-import { auth, db } from "../../firebase";
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 
-export const PersonalInformation = () => {
-    const [email, setEmail] = useState('')
-    const [userData, setData] = useState({
-        profile_picture: "https://picsum.photos/200", 
-        username: "error", 
-        recipes: null,
-    })
-    async function dataChecker () {
-        setEmail(auth.currentUser.email)
-    }
-
-    useEffect(() => {
-        dataChecker()
-    }, []);
-
+export const PersonalInformation = ({mail, name, likes}) => {
     let css = { display: 'flex', justifyContent: 'space-between', margin: '1%' }
 
     if (useMediaQuery('(max-width:525px)')) {
@@ -38,9 +22,21 @@ export const PersonalInformation = () => {
                         elevation={2}
                         sx={{
                             p: 2,
+                            mb: 2
                         }}>
                         <Typography variant="h6">
-                            {email}
+                            {mail}
+                        </Typography>
+                    </Paper>
+                </div>
+                <div>
+                    <Paper
+                        elevation={2}
+                        sx={{
+                            p: 2,
+                        }}>
+                        <Typography variant="h6">
+                            {name}
                         </Typography>
                     </Paper>
                 </div>
@@ -52,7 +48,7 @@ export const PersonalInformation = () => {
                 <img style={{
                     borderRadius: '15px'
                 }}
-                    src={userData.profile_picture} alt='profile' />
+                    src="https://picsum.photos/200" alt='profile' />
             </div>
         </div>
     )

@@ -2,7 +2,7 @@ import { recipesConnect } from "../../../connect/recipes/recipes"
 import Paper from '@mui/material/Paper';
 import { Link } from 'react-router-dom';
 
-export const widget = ({recipes, selectedProducts}) => {
+export const Widget = ({recipes, selectedProducts}) => {
     let newRecipes = []
     const isEmpty = (obj) => {
         for (let key in obj) {
@@ -14,7 +14,6 @@ export const widget = ({recipes, selectedProducts}) => {
     const checkProductsInRecipe = (recipe, prods) => {
         for (let key in prods) {
             if (recipe.lstOfProducts.includes(prods[key].name.toLowerCase())) {
-                console.log(recipe.lstOfProducts, prods[key].name)
                 return true;
             }
         }
@@ -35,10 +34,9 @@ export const widget = ({recipes, selectedProducts}) => {
             gap: '12px'
         }}>
             {newRecipes.map(item => (
-                <Link to={`/recipes/${item.id}`}>
+                <Link to={`/recipes/${item.id}`} key={item.id}>
                     <Paper elevation={3} 
                         style={{borderRadius: '7px', padding: '10px', height: '200px', textAlign: 'center', display: 'flex', alignItems: 'center', flexDirection: 'column'}} 
-                        key={item.id}
                     >
                         <img style={{borderRadius: '5px', maxHeight: '80%', maxWidth: '80%'}} src={item.images[0]} alt='food'/>
                         <p>{item.title}</p>
@@ -49,4 +47,4 @@ export const widget = ({recipes, selectedProducts}) => {
     )
 }
 
-export const ListOfReciepes = recipesConnect(widget)
+export const ListOfReciepes = recipesConnect(Widget)

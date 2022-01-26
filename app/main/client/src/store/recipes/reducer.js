@@ -213,8 +213,6 @@ const initialState = {
 export const recipesReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_NEW_RECIPE: {
-            console.log(action.payload)
-            console.log(state)
             return {
                 ...state,
                 userRecipes: [...state.userRecipes, action.payload],
