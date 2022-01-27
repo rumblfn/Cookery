@@ -10,6 +10,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import '../style.css';
 import './style.css';
 import { nanoid } from 'nanoid';
+import { changeUserRecipeProductCountReducer } from '../../../store/newRecipe/actions';
+import { useDispatch } from 'react-redux';
 
 export const ShowSelectedProducts = ({setIconImages, iconImage}) => {
     const show = () => {
@@ -31,7 +33,7 @@ export const ShowSelectedProducts = ({setIconImages, iconImage}) => {
     )
 }
 
-export const SelectedProducts = selectedProductsConnect(({setToggleClass, productsWithCount, creating, products, changeSelectedState, show, setProducts, lstOfProductsNames}) => {
+export const SelectedProducts = selectedProductsConnect(({dispatch, setToggleClass, creating, products, changeSelectedState, show, setProducts, lstOfProductsNames}) => {
     let css = {display: 'flex', flexWrap: 'wrap', marginBottom: '32px'};
     let css_paper = {borderRadius: '7px', padding: '10px', marginRight: '10px', marginBottom: '10px', 
         display: 'flex', flexDirection: 'column', alignContent: 'space-between'}
@@ -44,8 +46,8 @@ export const SelectedProducts = selectedProductsConnect(({setToggleClass, produc
         setProducts([...lstOfProductsNames])
     }
 
-    const checkProducts = () => {
-        console.log(productsWithCount)
+    const checkProducts = (text, productName) => {
+        dispatch(changeUserRecipeProductCountReducer({text, productName}))
     }
     
     if (creating) {
@@ -128,10 +130,11 @@ export const SelectedProducts = selectedProductsConnect(({setToggleClass, produc
 
 export const ListOfSelectedProducts = ({creating, setToggleClass}) => {
     const [iconImage, setIconImages] = useState(true)
+    const dispatch = useDispatch()
     return (
         <>
             <ShowSelectedProducts iconImage={iconImage} setIconImages={setIconImages}/>
-            <SelectedProducts setToggleClass={setToggleClass} creating={creating} show={iconImage}/>
+            <SelectedProducts dispatch={dispatch} setToggleClass={setToggleClass} creating={creating} show={iconImage}/>
         </>
     )
 }

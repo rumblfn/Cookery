@@ -6,7 +6,6 @@ import { LoginPage } from './routes/LoginPage';
 import { ProfilePage } from './routes/ProfilePage';
 import { SignUp } from './routes/RegistrationPage';
 import { PrivateRoute } from "./hocks/PrivateRoute";
-import { useEffect, useState } from 'react';
 import './appStyles.css';
 import { Footer } from './components/Footer/footer';
 import { useSelector } from 'react-redux';

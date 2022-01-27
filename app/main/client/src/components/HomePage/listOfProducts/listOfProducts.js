@@ -7,7 +7,6 @@ import InputBase from "@mui/material/InputBase";
 import Axios from 'axios';
 import Button from '@mui/material/Button';
 import { useState, useEffect } from 'react';
-import { auth } from '../../../firebase';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductsWithAPI } from '../../../store/products';
@@ -77,19 +76,19 @@ const Widget = productsConnect(({isLoading, toggleClass, setInputValue, inputVal
 export const ListOfProducts = ({toggleClass}) => {
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.products.products);
+    const userData = useSelector((state) => state.user)
+    console.log(userData)
+
     const [checkEmail, setCheckEmail] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const initialProducts = {}
 
     useEffect(() => {
-        try {
-            if (auth.currentUser.email === 'toshamilgis@gmail.com') {
-                setCheckEmail(true)
-            }
-        } catch {
-            setCheckEmail(false)
+        if (userData.mail === 'toshamilgis@gmail.com') {
+            setCheckEmail(true)
         }
+
         if (Object.keys(selector).length === 0) {
             setIsLoading(true)
             Axios.get('http://localhost:3001/products/get').then((response) => {

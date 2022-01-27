@@ -51,7 +51,6 @@ const css_mobile = {
 
 export const ProfilePage = () => {
     const userData = useSelector((state) => state.user)
-    console.log(userData)
     let css = css_desc
 
     const laptop = useMediaQuery('(max-width:1024px)');
