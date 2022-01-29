@@ -76,6 +76,8 @@ export const ProfilePage = () => {
                     mail={userData.mail}
                     name={userData.name}
                     likes={userData.likes}
+                    image={userData.image}
+                    userId={userData.id}
                 />
                 <CreateNewRecipe/>
                 <UserRecipes largePhone={largePhone}/>

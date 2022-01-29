@@ -1,38 +1,83 @@
 import { recipesConnect } from "../../../connect/recipes/recipes"
 import Paper from '@mui/material/Paper';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import Axios from 'axios';
 
-export const Widget = ({recipes, selectedProducts}) => {
+let css = {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '2%',
+    margin: '2%'
+}
+
+export const Widget = recipesConnect(({format, allRecipesBool, userRecipes, setRicepes, setIsLoading, recipes, selectedProducts}) => {
     let newRecipes = []
-    const isEmpty = (obj) => {
-        for (let key in obj) {
-          return true;
-        }
-        return false;
-    }
+    if (allRecipesBool) {
 
-    const checkProductsInRecipe = (recipe, prods) => {
-        for (let key in prods) {
-            if (recipe.lstOfProducts.includes(prods[key].name.toLowerCase())) {
-                return true;
-            }
+        if (format === 'computer') {
+            css = {...css, gridTemplateColumns: '1fr 1fr 1fr 1fr'}
+        } else if (format === 'laptop') {
+            css = {...css, gridTemplateColumns: '1fr 1fr 1fr'}
+        } else if (format === 'tablet') {
+            css = {...css, gridTemplateColumns: '1fr 1fr 1fr'}
+        } else if (format === 'tablet2') {
+            css = {...css, gridTemplateColumns: '1fr 1fr'}
+        } else if (format === 'phone') {
+            css = {...css, gridTemplateColumns: '1fr'}
         }
-        return false;
-    }
+
+        newRecipes = [...recipes]
+    } else {
+
+        if (format === 'computer') {
+            css = {...css, gridTemplateColumns: '1fr 1fr 1fr'}
+        } else if (format === 'laptop') {
+            css = {...css, gridTemplateColumns: '1fr 1fr'}
+        } else if (format === 'tablet') {
+            css = {...css, gridTemplateColumns: '1fr 1fr'}
+        } else if (format === 'tablet2') {
+            css = {...css, gridTemplateColumns: '1fr'}
+        } else if (format === 'phone') {
+            css = {...css, gridTemplateColumns: '1fr'}
+        }
+
+        useEffect(() => {
+            if (recipes.length <= userRecipes.length) {
+                setIsLoading(true)
+                Axios.get('http://localhost:3001/recipes/get').then((response) => {
+                    setRicepes(response.data)
+                    setIsLoading(false)
+                })
+            }
+        }, [])
     
-    if (isEmpty(selectedProducts)) {
-        for (let recipe of recipes) {
-            if (checkProductsInRecipe(recipe, selectedProducts)) {
-                newRecipes.push(recipe)
+        const isEmpty = (obj) => {
+            for (let key in obj) {
+              return true;
+            }
+            return false;
+        }
+    
+        const checkProductsInRecipe = (recipe, prods) => {
+            for (let key in prods) {
+                if (recipe.lstOfProducts.includes(prods[key].name.toLowerCase())) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        if (isEmpty(selectedProducts)) {
+            for (let recipe of recipes) {
+                if (checkProductsInRecipe(recipe, selectedProducts)) {
+                    newRecipes.push(recipe)
+                }
             }
         }
     }
     return (
-        <div style={{
-            display: 'grid',
-            gridTemplateColumns: '48% 48%',
-            gap: '12px'
-        }}>
+        <div style={css}>
             {newRecipes.map(item => (
                 <Link to={`/recipes/${item.id}`} key={item.id}>
                     <Paper elevation={3} 
@@ -45,6 +90,12 @@ export const Widget = ({recipes, selectedProducts}) => {
             }
         </div>
     )
-}
+})
 
-export const ListOfReciepes = recipesConnect(Widget)
+export const ListOfReciepes = ({format, allRecipesBool}) => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    return (
+        <Widget format={format} allRecipesBool={allRecipesBool} isLoading={isLoading} setIsLoading={setIsLoading}/>
+    )
+}

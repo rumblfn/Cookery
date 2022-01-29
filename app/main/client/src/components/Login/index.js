@@ -9,6 +9,8 @@ import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUserDataReducer } from "../../store/user/actions";
+import { clearReducer } from "../../store/recipes";
+
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -22,6 +24,7 @@ export const Login = () => {
             setError('Неверный email или пароль')
         } else {
             dispatch(setUserDataReducer(data))
+            dispatch(clearReducer())
             navigate("/profile");
         }
     }

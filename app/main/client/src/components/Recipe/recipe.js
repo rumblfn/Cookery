@@ -1,8 +1,14 @@
-import { recipesConnect } from '../../connect/recipes/recipes'
 import Paper from '@mui/material/Paper';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import styled from "styled-components";
+import { useDispatch, useSelector } from 'react-redux';
+import StarPurple500RoundedIcon from '@mui/icons-material/StarPurple500Rounded';
+import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import Button from "@mui/material/Button";
+import { useState } from 'react';
+import { starRecipeUserReducer } from '../../store/user/actions';
+import { recipesConnect } from '../../connect/recipes/recipes';
+import Axios from 'axios';
 
 const Box = styled.div`
     display: flex;
@@ -59,13 +65,33 @@ const GalleryImagesOnly = styled.div`
     }
 `
 
-export const widget = ({id, recipes}) => {
-    const recipeId = id
+export const RecipeInfo = recipesConnect(({id, starRecipeRecipe}) => {
+    let user = useSelector(state => state.user)
+    const [starred, setStarred] = useState(user.likedPostsIdes.indexOf(id) === -1 ? false : true)
+    const dispatch = useDispatch()
+
+    const recipeId = id;
+    const recipes = useSelector(state => state.recipes.recipes);
     let recipeMain = {};
     for (let recipe of recipes) {
-        if (recipe.id === recipeId) {
+        if (recipe.id == recipeId) {
             recipeMain = {...recipe};
             break;
+        }
+    }
+    const starFunction = () => {
+        if (user.loged) {
+            if (starred) {
+                Axios.post('http://localhost:3001/recipes/likes/update', {
+                    recipeId: recipeId, type: -1, userId: user.id
+                }).then((response) => {console.log(response)})
+            } else {
+                Axios.post('http://localhost:3001/recipes/likes/update', {
+                    recipeId: recipeId, type: 1, userId: user.id
+                }).then((response) => {console.log(response)})}
+        
+            setStarred(prevState => !prevState)
+            dispatch(starRecipeUserReducer({recipeId, starred}))
         }
     }
 
@@ -106,8 +132,23 @@ export const widget = ({id, recipes}) => {
                         : null}
                 </Overlay>
                 <OverlayRight>
-                    <p>Rating: {recipeMain.rating} <FavoriteIcon/></p>
-                    <p>time: {recipeMain.time} <AccessTimeIcon/></p>
+                    <div style={{
+                        display: 'flex', alignItems: 'center'
+                    }}>Rating: {recipeMain.rating}
+                        <Button sx={{color: 'black', borderRadius: '10px', m: 1, width: 'fit-content'}}
+                                style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}
+                                onClick = {() => {starFunction()}}>
+                            {starred ? <StarRoundedIcon/>: <StarPurple500RoundedIcon/>}
+                        </Button>
+                    </div>
+                    <div style={{
+                        display: 'flex', alignItems: 'center'
+                    }}>time: {recipeMain.time}
+                        <Button sx={{color: 'black', borderRadius: '10px', m: 1, width: 'fit-content'}}
+                                style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>
+                            <AccessTimeIcon/>
+                        </Button>
+                    </div>
                     {recipeMain.images.length > 0 ? 
                         <GalleryRight>
                             <h5 style={{borderBottom: '2px solid black', margin: '16px 0'}}>Галлерея</h5>
@@ -123,6 +164,4 @@ export const widget = ({id, recipes}) => {
             </Box>
         </div>
     )
-}
-
-export const RecipeInfo = recipesConnect(widget)
+})

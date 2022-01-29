@@ -131,10 +131,8 @@ export const SelectedProducts = selectedProductsConnect(({dispatch, setToggleCla
 export const ListOfSelectedProducts = ({creating, setToggleClass}) => {
     const [iconImage, setIconImages] = useState(true)
     const dispatch = useDispatch()
-    return (
-        <>
+    return (<>
             <ShowSelectedProducts iconImage={iconImage} setIconImages={setIconImages}/>
             <SelectedProducts dispatch={dispatch} setToggleClass={setToggleClass} creating={creating} show={iconImage}/>
-        </>
-    )
+        </>)
 }

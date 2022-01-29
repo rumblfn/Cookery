@@ -1,4 +1,4 @@
-import { SET_USER_DATA } from './actions';
+import { SET_USER_DATA, STAR_RECIPE, CHANGE_IMAGE } from './actions';
 
 const initialState = {
     loged: false,
@@ -6,13 +6,36 @@ const initialState = {
     name: null,
     mail: null,
     likes: null,
-    recipes: []
+    recipes: [],
+    likedPostsIdes: [],
 }
 
 export const userReducer = (state = initialState, action) => {
     switch (action.type) {
+        case CHANGE_IMAGE: {
+            return {...state, image: action.payload}
+        }
         case SET_USER_DATA: {
-            return {...state, ...action.payload, loged: true}
+            return {...state, ...action.payload, 
+                loged: true, likedPostsIdes: action.payload.likedPostsIdes.split(';')}
+        }
+        case STAR_RECIPE: {
+            switch (action.payload.starred) {
+                case true: {
+                    let likedPostIdesCopy = [...state.likedPostsIdes]
+                    const index = likedPostIdesCopy.indexOf(action.payload.recipeId);
+                    if (index > -1) {
+                        likedPostIdesCopy.splice(index, 1);
+                    }
+                    return {...state, likedPostsIdes: likedPostIdesCopy}
+                }
+                case false: {
+                    return {...state, likedPostsIdes: [...state.likedPostsIdes, action.payload.recipeId]}
+                }
+                default: {
+                    return state
+                }
+            }
         }
         default: {
             return state

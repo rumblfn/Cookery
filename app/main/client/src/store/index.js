@@ -5,7 +5,14 @@ import { userReducer } from './user/reducer';
 import { userRecipeReducer } from './newRecipe/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
+import storage from 'redux-persist/lib/storage';
+import persistReducer from "redux-persist/es/persistReducer";
+import persistStore from "redux-persist/es/persistStore";
 
+const persistConfig = {
+    key: 'root',
+    storage,
+}
 
 const rootReducer = combineReducers({
     products: productsReducer,
@@ -14,7 +21,15 @@ const rootReducer = combineReducers({
     newRecipe: userRecipeReducer,
 })
 
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+const fetchMiddleWare = store => next => action => {
+    console.log(action)
+}
+
 export const store = createStore(
-    rootReducer,
+    persistedReducer,
     composeWithDevTools(applyMiddleware(thunk))
 )
+
+export const persistedStore = persistStore(store)

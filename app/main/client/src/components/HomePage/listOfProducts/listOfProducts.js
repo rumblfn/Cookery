@@ -77,7 +77,6 @@ export const ListOfProducts = ({toggleClass}) => {
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.products.products);
     const userData = useSelector((state) => state.user)
-    console.log(userData)
 
     const [checkEmail, setCheckEmail] = useState(false);
     const [inputValue, setInputValue] = useState('');
@@ -100,8 +99,8 @@ export const ListOfProducts = ({toggleClass}) => {
                         }
                     }
                 }
-                setIsLoading(false)
                 dispatch(addProductsWithAPI(initialProducts))
+                setIsLoading(false)
             })
         }
     }, [])

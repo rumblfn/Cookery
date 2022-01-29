@@ -43,16 +43,21 @@ export const HomePage = () => {
     const tablet = useMediaQuery('(max-width:768px)');
     const tablet2 = useMediaQuery('(max-width:628px)');
     const phone = useMediaQuery('(max-width:425px)');
+    let format = 'computer'
 
     if (phone) {
         css = css_mobile;
         default_size = '40vh'
+        format = 'phone'
     } else if (tablet2) {
         css = css_tablet2;
+        format = 'tablet2'
     } else if (tablet) {
         css = css_tablet;
+        format = 'tablet'
     }else if (laptop) {
         css = css_laptop;
+        format = 'laptop'
     }
     return ( 
         <div className="container">
@@ -62,7 +67,7 @@ export const HomePage = () => {
                 </div>
                 <div>
                     <ListOfSelectedProducts setToggleClass={setToggleClass} />
-                    <ListOfReciepes />
+                    <ListOfReciepes format={format} />
                 </div>
             </div>
         </div>

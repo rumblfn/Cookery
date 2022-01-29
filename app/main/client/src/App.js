@@ -5,6 +5,7 @@ import { HomePage } from './routes/HomePage';
 import { LoginPage } from './routes/LoginPage';
 import { ProfilePage } from './routes/ProfilePage';
 import { SignUp } from './routes/RegistrationPage';
+import { AllRecipesPage } from './routes/OnlyRecipesPage';
 import { PrivateRoute } from "./hocks/PrivateRoute";
 import './appStyles.css';
 import { Footer } from './components/Footer/footer';
@@ -22,6 +23,7 @@ export const App = () => {
                 <Routes>
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<SignUp />} />
+                    <Route path="/allRecipes" element={<AllRecipesPage/>}/>
                     <Route path="/recipes/:recipeId" element={<RecipesPage />} />
                     <Route path="/profile/*" element={
                         <PrivateRoute authed={userIsLoged}>
