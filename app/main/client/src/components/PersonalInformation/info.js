@@ -16,19 +16,22 @@ export const PersonalInformation = ({userId, image, mail, name, likes}) => {
     }
 
     function encodeImageFileAsURL(element) {
-        let file = element.files[0];
-        let reader = new FileReader();
-        reader.onloadend = function() {
+        try {
+            let file = element.files[0];
+            let reader = new FileReader();
+            reader.onloadend = function() {
             dispatch(setUserProfileImage(reader.result))
             Axios.post('http://localhost:3001/user/image/upload', {
                 imageBase64: reader.result,
                 userId
             }).then((result) => {console.log(result);})}
-        reader.readAsDataURL(file);}
+            reader.readAsDataURL(file);
+        } catch (err) {
+            console.log(err)
+    }}
 
     const handleUploadedFileImage = (e) => {
-        encodeImageFileAsURL(e.target)
-    }
+        encodeImageFileAsURL(e.target)}
 
     return (
         <div style={css}>

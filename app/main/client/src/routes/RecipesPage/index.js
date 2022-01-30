@@ -3,10 +3,10 @@ import { RecipeInfo } from "../../components/Recipe/recipe";
 
 
 export const RecipesPage = () => {
-    const {recipeId} = useParams();
+    const {recipeId, page} = useParams();
     return (
         <div>
-            <RecipeInfo id={recipeId}/>
+            <RecipeInfo page={page} id={recipeId}/>
         </div>
     )
 }

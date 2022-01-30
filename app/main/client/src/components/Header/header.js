@@ -47,24 +47,15 @@ const OverlayMenu = styled.ul`
 
 const NavBarItem = ({link, text, menu, setBarActive, not_show}) => {
     let css_span = {}
-    if (menu) {
-        css_span = {
-            color: 'white'
-        }
-    }
-    if (not_show) {
-        return null
-    } else 
-        return (
-            <Typography
-                variant="h6"
-                component="span"
-                fontSize='24px'
-            >
-                <Link to={link} onClick={() => setBarActive(false)} style={{ textDecoration: 'none', color: 'white' }}>
-                    <span className='gradient-text' style={css_span}>{text}</span>
-                </Link>
-            </Typography>
+    if (menu) { css_span = { color: 'white' }}
+
+    if (not_show) { return null }
+    return (
+        <Typography variant="h6" component="span" fontSize='24px'>
+            <Link to={link} onClick={() => setBarActive(false)} style={{ textDecoration: 'none', color: 'white' }}>
+                <span className='gradient-text' style={css_span}>{text}</span>
+            </Link>
+        </Typography>
     )
 }
 
@@ -78,28 +69,15 @@ export const Header = () => {
         setBarActive(!bar_active);
     }
 
-    if (bar_active) {
-        document.body.style.overflow = "hidden";
-    } else {
-        document.body.style.overflow = "scroll";
-    }
+    if (bar_active) { document.body.style.overflow = "hidden";
+    } else { document.body.style.overflow = "scroll"; }
 
     return (
-        <Box sx={{height: '64px', m: 0, p: 0, mb: 6}}>
-            <AppBar className='container'
-                position="static"
-                sx={{ background: 'white', boxShadow: 'none'}}
-            >
-                <Toolbar sx={{
-                    display: "flex",
-                    justifyContent: 'space-between',
-                }}>
+        <Box sx={{height: '64px', m: 0, p: 0}}>
+            <AppBar className='container' position="static" sx={{ background: 'white', boxShadow: 'none'}}>
+                <Toolbar sx={{ display: "flex", justifyContent: 'space-between' }}>
                     <div>
-                        <Typography
-                            variant="h6"
-                            component="span"
-                            fontSize='30px'
-                        >
+                        <Typography variant="h6" component="span" fontSize='30px'>
                             <Link to="/" onClick={() => setBarActive(false)} style={{ textDecoration: 'none', color: 'black' }}>
                                 <span className='gradient-text heading'>Cookery</span>
                             </Link>

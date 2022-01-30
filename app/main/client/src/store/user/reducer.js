@@ -16,8 +16,11 @@ export const userReducer = (state = initialState, action) => {
             return {...state, image: action.payload}
         }
         case SET_USER_DATA: {
-            return {...state, ...action.payload, 
-                loged: true, likedPostsIdes: action.payload.likedPostsIdes.split(';')}
+            if (action.payload.likedPostsIdes === null) {
+                return {...state, ...action.payload, 
+                    loged: true, likedPostsIdes: []}
+            }   return {...state, ...action.payload, 
+            loged: true, likedPostsIdes: action.payload.likedPostsIdes.split(';') || []}
         }
         case STAR_RECIPE: {
             switch (action.payload.starred) {

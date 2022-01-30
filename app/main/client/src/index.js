@@ -6,12 +6,11 @@ import { App } from './App'
 import {store} from './store'
 import {PersistGate} from "redux-persist/integration/react";
 import { persistedStore } from "./store";
-import CircularProgress from '@mui/material/CircularProgress';
 
 ReactDOM.render(
   <React.StrictMode>
       <Provider store={store}>
-          <PersistGate loading={<CircularProgress />} persistor={persistedStore}>
+          <PersistGate persistor={persistedStore}>
               <BrowserRouter>
                   <App/>
               </BrowserRouter>

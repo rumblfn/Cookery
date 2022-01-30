@@ -56,7 +56,7 @@ const Widget = productsConnect(({isLoading, toggleClass, setInputValue, inputVal
                     sx={{m: 0, width: '100%', borderBottom: '2px solid black'}} placeholder="Введите название продукта"
                 />
             </div>
-            <div style={{}}>
+            <div>
             {isLoading ? 
             <div style={{textAlign: 'center', padding: '32px 0'}}>
                 <CircularProgress sx={{color: 'black'}}/>

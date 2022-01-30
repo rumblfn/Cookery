@@ -116,9 +116,7 @@ export const SelectedProducts = selectedProductsConnect(({dispatch, setToggleCla
                     </div>)
             } else {
                 return (
-                    <div className="selectedProductsEmpty" style={{
-                        textAlign: 'center', margin: '0 32px', border: '2px dashed black', borderRadius: '8px'
-                    }}>
+                    <div className="selectedProductsEmpty" style={{textAlign: 'center', margin: '0 32px', border: '2px dashed black', borderRadius: '8px'}}>
                         <h6 style={{margin: '48px 0'}}>Список выбранных продуктов пуст</h6>
                     </div>)
             }

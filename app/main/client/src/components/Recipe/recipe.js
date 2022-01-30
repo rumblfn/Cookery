@@ -65,20 +65,25 @@ const GalleryImagesOnly = styled.div`
     }
 `
 
-export const RecipeInfo = recipesConnect(({id, starRecipeRecipe}) => {
+export const RecipeInfo = recipesConnect(({page, id, starRecipeRecipe}) => {
+    console.log(page)
     let user = useSelector(state => state.user)
     const [starred, setStarred] = useState(user.likedPostsIdes.indexOf(id) === -1 ? false : true)
     const dispatch = useDispatch()
 
     const recipeId = id;
-    const recipes = useSelector(state => state.recipes.recipes);
+    let selector = {}
+    page === 'profile' ? selector = useSelector(state => state.recipes.userRecipes) : selector = useSelector(state => state.recipes.recipes)
     let recipeMain = {};
-    for (let recipe of recipes) {
-        if (recipe.id == recipeId) {
-            recipeMain = {...recipe};
+    console.log(selector);
+
+    for (let recipe in selector) {
+        if (recipe == recipeId) {
+            recipeMain = selector[recipe];
             break;
         }
     }
+
     const starFunction = () => {
         if (user.loged) {
             if (starred) {
