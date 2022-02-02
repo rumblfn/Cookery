@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Axios from 'axios';
 import { setRecipesWithAPI } from "../../store/recipes";
 import CircularProgress from '@mui/material/CircularProgress';
+import Button from "@mui/material/Button";
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
 
 const paperCss = {borderRadius: '7px', padding: '10px', height: '100px', textAlign: 'center', display: 'flex', alignItems: 'center', flexDirection: 'column'}
 const imageCss = {borderRadius: '5px', maxHeight: '80%', maxWidth: '80%'}
@@ -34,7 +36,22 @@ export const Widget = ({userRecipes, largePhone}) => {
 
     return (
         <div style={{marginTop: '32px'}}>
-            <h3>Ваши рецепты</h3>
+            <div style={{ display: 'flex', marginBottom: '16px' }}>
+            <h4>Ваши рецепты</h4>
+            <Link to='/profile/create'>
+                <Button 
+                    style={{
+                        marginLeft: '12px',
+                        borderColor: "#000000",
+                        color: '#000000',
+                    }}
+                    variant="outlined" 
+                    type="submit"
+                >
+                    <AddRoundedIcon/>
+                </Button>
+            </Link>
+        </div>
             <div>
             {Object.values(userRecipes).length ? 
                 isLoading ? 

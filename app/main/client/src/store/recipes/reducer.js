@@ -1,9 +1,10 @@
-import { ADD_NEW_RECIPE, SET_RECIPES, SET_RECIPES_ALL, CLEAR_REDUCER, STAR_RECIPE } from './actions';
+import { ADD_NEW_RECIPE, SET_RECIPES, SET_RECIPES_ALL, CLEAR_REDUCER, STAR_RECIPE, SET_STARRED_RECIPES } from './actions';
 import Axios from 'axios';
 
 const initialState = {
     userRecipes: {},
     recipes: {},
+    starred_recipes: {},
 }
 
 export const recipesReducer = (state = initialState, action) => {
@@ -20,7 +21,7 @@ export const recipesReducer = (state = initialState, action) => {
                     if (recipeId in recipesCopy) {
                         recipesCopy[recipeId].rating -= 1;
                     }
-                    return {userRecipes: userRecipeCopy, recipes: recipesCopy}
+                    return {...state, userRecipes: userRecipeCopy, recipes: recipesCopy}
                 }
                 case false: {
                     let userRecipeCopy = {...state.userRecipes}
@@ -32,7 +33,7 @@ export const recipesReducer = (state = initialState, action) => {
                     if (recipeId in recipesCopy) {
                         recipesCopy[recipeId].rating += 1;
                     }
-                    return {userRecipes: userRecipeCopy, recipes: recipesCopy}
+                    return {...state, userRecipes: userRecipeCopy, recipes: recipesCopy}
                 }
                 default: {
                     return state
@@ -57,6 +58,25 @@ export const recipesReducer = (state = initialState, action) => {
                 }
             })
             return {...state, recipes: {...state.recipes, ...settedRecipes}}
+        }
+        case SET_STARRED_RECIPES: {
+            const settedUserStarredRecipes = {}
+            action.payload.forEach((item) => {
+                settedUserStarredRecipes[item.id] = {
+                    comments: JSON.parse(item.comments),
+                    cook: JSON.parse(item.cook),
+                    description: JSON.parse(item.description),
+                    id: item.id,
+                    images: JSON.parse(item.images) || [],
+                    lstOfProducts: JSON.parse(item.lstOfProducts),
+                    products: JSON.parse(item.products),
+                    rating: item.rating,
+                    time: item.time,
+                    title: item.title,
+                    userId: item.userId
+                }
+            })
+            return {...state, starred_recipes: {...settedUserStarredRecipes}}
         }
         case SET_RECIPES: {
             const settedUserRecipes = {}

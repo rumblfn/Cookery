@@ -1,11 +1,12 @@
 import { PersonalInformation } from '../../components/PersonalInformation/info'
-import { CreateNewRecipe } from '../../components/CreateNewRecipe/index'
+import { SavedRecipes } from '../../components/CreateNewRecipe/index'
 import { UserRecipes } from '../../components/usersRecipes/usersRecipes'
 import { CreateRecipeBlock } from '../../components/CreateRecipeBlock/index'
 import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Navigate } from "react-router-dom";
+import { StarredRecipesPage } from '../StarredRecipesPage';
 
 
 const css_desc = {
@@ -79,12 +80,27 @@ export const ProfilePage = () => {
                     image={userData.image}
                     userId={userData.id}
                 />
-                <CreateNewRecipe/>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <SavedRecipes/>
+                </div>
                 <UserRecipes largePhone={largePhone}/>
                 <Routes>
+                    <Route path="starred/*" element={<StarredRecipesPage />} />
                     <Route path="create/*" element={<CreateRecipeBlock />} />
                 </Routes>
             </div> : <Navigate to='/login'/>}
+        </div>
+    )
+}
+
+
+export const ProfilePageRoutes = () => {
+    return (
+        <div>
+            <Routes>
+                <Route path="starred/*" element={<StarredRecipesPage />} />
+                <Route path="*" element={<ProfilePage />} />
+            </Routes>
         </div>
     )
 }

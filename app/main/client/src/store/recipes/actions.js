@@ -3,6 +3,7 @@ export const SET_RECIPES = 'SET_RECIPES';
 export const SET_RECIPES_ALL = 'SET_RECIPES_ALL';
 export const CLEAR_REDUCER = 'CLEAR_REDUCER';
 export const STAR_RECIPE = 'STAR_RECIPE';
+export const SET_STARRED_RECIPES ='SET_STARRED_RECIPES';
 
 export const addNewRecipeReducer = (recipe) => ({
     type: ADD_NEW_RECIPE,
@@ -26,4 +27,9 @@ export const clearReducer = () => ({
 export const starRecipeRecipeReducer = (data)  => ({
     type: STAR_RECIPE,
     payload: data,
+})
+
+export const setStarredRecipes = (payload) => ({
+    type: SET_STARRED_RECIPES,
+    payload
 })

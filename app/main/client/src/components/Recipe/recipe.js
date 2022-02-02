@@ -73,7 +73,11 @@ export const RecipeInfo = recipesConnect(({page, id, starRecipeRecipe}) => {
 
     const recipeId = id;
     let selector = {}
-    page === 'profile' ? selector = useSelector(state => state.recipes.userRecipes) : selector = useSelector(state => state.recipes.recipes)
+
+    page === 'profile' ? selector = useSelector(state => state.recipes.userRecipes) :
+    page === 'starred' ? selector = useSelector(state => state.recipes.starred_recipes) : 
+    selector = useSelector(state => state.recipes.recipes)
+
     let recipeMain = {};
     console.log(selector);
 

@@ -36,9 +36,7 @@ export const PersonalInformation = ({userId, image, mail, name, likes}) => {
     return (
         <div style={css}>
             <div>
-                <h2 style={{fontFamily: 'Roboto',
-                }}> Личная информация
-                </h2>
+                <h2> Личная информация </h2>
                 <div>
                     <Paper elevation={2} sx={{p: 2, mb: 2}}>
                         <Typography variant="h6">

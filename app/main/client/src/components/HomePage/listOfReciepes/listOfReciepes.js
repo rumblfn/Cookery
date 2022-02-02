@@ -3,11 +3,14 @@ import Paper from '@mui/material/Paper';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
+import { Search } from '../../../components/searchLine/index'
+import { useSelector } from 'react-redux';
 
-let css = {display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2%', margin: '2%'}
+let css = {display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2%', marginTop: '48px'}
 
 export const Widget = recipesConnect(({format, allRecipesBool, userRecipes, setRicepes, setIsLoading, recipes, selectedProducts}) => {
     let newRecipes = {}
+
     if (allRecipesBool) {
 
         if (format === 'computer') { css = {...css, gridTemplateColumns: '1fr 1fr 1fr 1fr'}
@@ -15,7 +18,13 @@ export const Widget = recipesConnect(({format, allRecipesBool, userRecipes, setR
         } else if (format === 'tablet') { css = {...css, gridTemplateColumns: '1fr 1fr 1fr'}
         } else if (format === 'tablet2') { css = {...css, gridTemplateColumns: '1fr 1fr'}
         } else if (format === 'phone') { css = {...css, gridTemplateColumns: '1fr'}
-        } newRecipes = {...recipes}
+        } 
+
+        if (allRecipesBool === 'starred') {
+            newRecipes = useSelector(state => state.recipes.starred_recipes)
+        } else {
+            newRecipes = {...recipes}
+        }
 
     } else {
 
@@ -46,14 +55,24 @@ export const Widget = recipesConnect(({format, allRecipesBool, userRecipes, setR
                     newRecipes[recipe] = {...recipes[recipe]}}}}}
 
     return (
-        <div style={css}>
-            {Object.values(newRecipes).map(item => (
-            <Link to={`/recipes/${item.id}/all`} key={item.id}>
-                <Paper elevation={3} style={{borderRadius: '7px', padding: '10px', height: '200px', justifyContent: 'space-between', display: 'flex', alignItems: 'center', flexDirection: 'column'}} >
-                    <img style={{borderRadius: '5px', maxHeight: '80%', maxWidth: '80%'}} src={item.images[0]} alt='food'/>
-                    <p>{item.title}</p>
-                </Paper>
-            </Link>))}
+        <div>
+            {allRecipesBool ? <Search format={format}/> : null}
+            <div style={css}>
+                {Object.values(newRecipes).map(item => (
+                (allRecipesBool === 'starred' ? 
+                <Link to={`/recipes/${item.id}/starred`} key={item.id}>
+                    <Paper elevation={3} style={{borderRadius: '7px', padding: '10px', height: '200px', justifyContent: 'space-between', display: 'flex', alignItems: 'center', flexDirection: 'column'}} >
+                        <img style={{borderRadius: '5px', maxHeight: '80%', maxWidth: '80%'}} src={item.images[0]} alt='food'/>
+                        <p>{item.title}</p>
+                    </Paper>
+                </Link>
+                :<Link to={`/recipes/${item.id}/all`} key={item.id}>
+                    <Paper elevation={3} style={{borderRadius: '7px', padding: '10px', height: '200px', justifyContent: 'space-between', display: 'flex', alignItems: 'center', flexDirection: 'column'}} >
+                        <img style={{borderRadius: '5px', maxHeight: '80%', maxWidth: '80%'}} src={item.images[0]} alt='food'/>
+                        <p>{item.title}</p>
+                    </Paper>
+                </Link>)))}
+            </div>
         </div>
     )
 })

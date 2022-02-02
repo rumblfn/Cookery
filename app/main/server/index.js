@@ -92,6 +92,15 @@ app.get('/recipes/get', (req, res) => {
     })
 })
 
+app.get('/starredRecipes/get', (req, res) => {
+    const sqlSelect = `SELECT * FROM reciepes WHERE id IN (${req.query.recipesIdes.join(', ')});`;
+    db.query(sqlSelect, (err, result) => {
+        console.log(`error: ${err}`);
+        console.log(`result: ${result}`);
+        res.send(result)
+    })
+})
+
 app.post('/recipes/likes/update', (req, res) => {
     const type = req.body.type;
     const recipeId = req.body.recipeId;

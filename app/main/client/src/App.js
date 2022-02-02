@@ -3,11 +3,10 @@ import { Routes, Route } from 'react-router-dom';
 import { RecipesPage } from './routes/RecipesPage';
 import { HomePage } from './routes/HomePage';
 import { LoginPage } from './routes/LoginPage';
-import { ProfilePage } from './routes/ProfilePage';
+import { ProfilePageRoutes } from './routes/ProfilePage';
 import { SignUp } from './routes/RegistrationPage';
 import { AllRecipesPage } from './routes/OnlyRecipesPage';
 import { PrivateRoute } from "./hocks/PrivateRoute";
-import './appStyles.css';
 import { Footer } from './components/Footer/footer';
 import { useSelector } from 'react-redux';
 
@@ -28,7 +27,7 @@ export const App = () => {
                     <Route path="/recipes/:recipeId/:page" element={<RecipesPage />} />
                     <Route path="/profile/*" element={
                         <PrivateRoute authed={userIsLoged}>
-                            <ProfilePage />
+                            <ProfilePageRoutes />
                         </PrivateRoute>
                     } />
                     <Route path="/*" element={<HomePage />} />
