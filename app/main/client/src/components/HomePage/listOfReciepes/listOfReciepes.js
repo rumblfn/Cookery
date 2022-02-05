@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 let css = {display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2%', marginTop: '48px'}
 
-export const Widget = recipesConnect(({format, allRecipesBool, userRecipes, setRicepes, setIsLoading, recipes, selectedProducts}) => {
+export const Widget = recipesConnect(({searchField, setSearchField, format, allRecipesBool, userRecipes, setRicepes, setIsLoading, recipes, selectedProducts}) => {
     let newRecipes = {}
 
     if (allRecipesBool) {
@@ -37,7 +37,7 @@ export const Widget = recipesConnect(({format, allRecipesBool, userRecipes, setR
         useEffect(() => {
             if (Object.keys(recipes).length <= Object.keys(userRecipes).length) {
                 setIsLoading(true)
-                Axios.get('http://localhost:3001/recipes/get').then((response) => {
+                Axios.get('https://cookery-app.herokuapp.com/recipes/get').then((response) => {
                     setRicepes(response.data)
                     setIsLoading(false)})}}, [])
     
@@ -53,10 +53,20 @@ export const Widget = recipesConnect(({format, allRecipesBool, userRecipes, setR
             for (let recipe in recipes) {
                 if (checkProductsInRecipe(recipes[recipe], selectedProducts)) {
                     newRecipes[recipe] = {...recipes[recipe]}}}}}
+    
+    const setSearchFieldFunc = (val) => {
+        setSearchField(val)
+    }
+
+    useEffect(() => {
+        console.log(searchField)
+    }, [searchField])
 
     return (
         <div>
-            {allRecipesBool ? <Search format={format}/> : null}
+            { allRecipesBool ? 
+            <Search setSearchFieldFunc={setSearchFieldFunc} format={format}/> 
+            : null }
             <div style={css}>
                 {Object.values(newRecipes).map(item => (
                 (allRecipesBool === 'starred' ? 
@@ -79,5 +89,9 @@ export const Widget = recipesConnect(({format, allRecipesBool, userRecipes, setR
 
 export const ListOfReciepes = ({format, allRecipesBool}) => {
     const [isLoading, setIsLoading] = useState(false);
-    return <Widget format={format} allRecipesBool={allRecipesBool} isLoading={isLoading} setIsLoading={setIsLoading}/>
+    const [searchField, setSearchField] = useState('')
+
+    return <Widget format={format} allRecipesBool={allRecipesBool} 
+                isLoading={isLoading} setIsLoading={setIsLoading}
+                searchField={searchField} setSearchField={setSearchField}/>
 }

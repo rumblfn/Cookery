@@ -21,7 +21,7 @@ export const PersonalInformation = ({userId, image, mail, name, likes}) => {
             let reader = new FileReader();
             reader.onloadend = function() {
             dispatch(setUserProfileImage(reader.result))
-            Axios.post('http://localhost:3001/user/image/upload', {
+            Axios.post('https://cookery-app.herokuapp.com/user/image/upload', {
                 imageBase64: reader.result,
                 userId
             }).then((result) => {console.log(result);})}

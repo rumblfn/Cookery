@@ -91,11 +91,11 @@ export const RecipeInfo = recipesConnect(({page, id, starRecipeRecipe}) => {
     const starFunction = () => {
         if (user.loged) {
             if (starred) {
-                Axios.post('http://localhost:3001/recipes/likes/update', {
+                Axios.post('https://cookery-app.herokuapp.com/recipes/likes/update', {
                     recipeId: recipeId, type: -1, userId: user.id
                 }).then((response) => {console.log(response)})
             } else {
-                Axios.post('http://localhost:3001/recipes/likes/update', {
+                Axios.post('https://cookery-app.herokuapp.com/recipes/likes/update', {
                     recipeId: recipeId, type: 1, userId: user.id
                 }).then((response) => {console.log(response)})}
         

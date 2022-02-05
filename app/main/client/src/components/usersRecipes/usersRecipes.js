@@ -25,7 +25,7 @@ export const Widget = ({userRecipes, largePhone}) => {
     useEffect(() => {
         if (Object.values(selector).length === 0) {
             setIsLoading(true)
-            Axios.get('http://localhost:3001/user/reciepes/get', {
+            Axios.get('https://cookery-app.herokuapp.com/user/reciepes/get', {
                 params: { id: userId }
             }).then((response) => {
                 setIsLoading(false)

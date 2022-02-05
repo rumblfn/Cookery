@@ -98,7 +98,7 @@ export const recipesReducer = (state = initialState, action) => {
             return {...state, userRecipes: {...state.userRecipes, ...settedUserRecipes}}
         }
         case ADD_NEW_RECIPE: {
-            Axios.post('http://localhost:3001/reciepes/insert', {
+            Axios.post('https://cookery-app.herokuapp.com/reciepes/insert', {
                 ...action.payload, images: JSON.stringify(action.payload.images)
             }).then(() => {})
             return {...state,

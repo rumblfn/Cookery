@@ -21,12 +21,13 @@ const Widget = productsConnect(({isLoading, toggleClass, setInputValue, inputVal
     }
 
     const filterProducts = (event) => {
-        setInputValue(event.target.value)
-        filterState(event.target.value);
+        let text = event.target.value.toLowerCase()
+        setInputValue(text)
+        filterState(text);
     }
 
     const addNewProduct = () => {
-        Axios.post('http://localhost:3001/products/insert', {
+        Axios.post('https://cookery-app.herokuapp.com/products/insert', {
             productName: inputValue
         }).then(() => {
             console.log(`${inputValue} added`);
@@ -90,7 +91,7 @@ export const ListOfProducts = ({toggleClass}) => {
 
         if (Object.keys(selector).length === 0) {
             setIsLoading(true)
-            Axios.get('http://localhost:3001/products/get').then((response) => {
+            Axios.get('https://cookery-app.herokuapp.com/products/get').then((response) => {
                 for (let prod of response.data) {
                     if (prod.name) {
                         initialProducts[prod.id] = {

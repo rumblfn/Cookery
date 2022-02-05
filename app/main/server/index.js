@@ -6,12 +6,15 @@ const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 
 const salt = "$2b$10$TBx7fI7TfQ9JvzvDlcHDd.";
+const port = process.env.PORT || 3001
+
+app.set('view engine', 'ejs')
 
 const db = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: 'Arsenal2015@',
-    database: 'CookeryDB',
+    host: 'eu-cdbr-west-02.cleardb.net',
+    user: 'b82d03ce253fe2',
+    password: '313e5fa0',
+    database: 'heroku_8757a67bd286b80',
     multipleStatements: true
 })
 
@@ -157,6 +160,6 @@ app.post('/user/image/upload', (req, res) => {
     })
 })
 
-app.listen(3001, () => {
-    console.log('running on port 3001');
+app.listen(port, () => {
+    console.log(`running on port ${port}`);
 })
