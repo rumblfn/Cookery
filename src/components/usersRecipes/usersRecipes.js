@@ -24,7 +24,7 @@ export const Widget = ({userRecipes, largePhone}) => {
     useEffect(() => {
         if (Object.values(selector).length === 0) {
             setIsLoading(true)
-            Axios.get('https://cookery-app.herokuapp.com/user/reciepes/get', {
+            Axios.get('/user/reciepes/get', {
                 params: { id: userId }
             }).then((response) => {
                 setIsLoading(false)
@@ -32,21 +32,19 @@ export const Widget = ({userRecipes, largePhone}) => {
             })
         }
     }, [])
+    console.log(userRecipes)
 
     return (
         <div style={{marginTop: '32px'}}>
             <div style={{ display: 'flex', marginBottom: '16px' }}>
             <h4>Ваши рецепты</h4>
             <Link to='/profile/create'>
-                <Button 
+                <Button type="submit" variant="outlined"
                     style={{
                         marginLeft: '12px',
                         borderColor: "#000000",
                         color: '#000000',
-                    }}
-                    variant="outlined" 
-                    type="submit"
-                >
+                }}>
                     <AddRoundedIcon/>
                 </Button>
             </Link>
@@ -64,12 +62,12 @@ export const Widget = ({userRecipes, largePhone}) => {
                                 borderRadius: '7px', height: '200px', overflow: 'hidden', position: 'relative',
                                 justifyContent: 'space-between', display: 'flex', alignItems: 'center', flexDirection: 'column'
                             }}>
-                                {item.images[0] ? 
-                                    <img style={{width: '100%', height: '100%', objectFit: 'cover'}} src={item.images[0]} alt='food'/>
+                                {Object.values(item.images).length > 0 ? 
+                                    <img style={{width: '100%', height: '100%', objectFit: 'cover'}} src={`/reciepes/${item.images[0]}`} alt='food'/>
                                     : <div style={{backgroundColor: 'black', width: '100%', height: '100%', position: 'relative'}}/>
                                 }
-                                <div class="overlay">
-                                    <div class="text">{item.title}</div>
+                                <div className="overlay">
+                                    <div className="text">{item.title}</div>
                                 </div>
                             </Paper>
                         </Link>))}

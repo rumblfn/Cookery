@@ -15,9 +15,10 @@ export const Widget = recipesConnect(({userId, setImages, recipeData, images, de
     const inputRef = useRef(null)
     function encodeImageFileAsURL(element) {
         let file = element.files[0];
+        console.log(file)
         let reader = new FileReader();
         reader.onloadend = function() {
-            setImages(prevState => [...prevState, reader.result])
+            setImages(prevState => ({...prevState, [file.name]: reader.result}))
         }
         reader.readAsDataURL(file);
     }
@@ -26,13 +27,8 @@ export const Widget = recipesConnect(({userId, setImages, recipeData, images, de
         try {
             encodeImageFileAsURL(e.target)
         } catch {
-            console.log('error')
         }
     }
-    
-    useEffect(() => {
-        console.log(images)
-    }, [images])
 
     const inputClick = () => {
         inputRef.current.click()
@@ -87,12 +83,12 @@ export const Widget = recipesConnect(({userId, setImages, recipeData, images, de
                 <input ref={inputRef} id="file-upload__post" type="file" onChange={e => {handleUploadedFileImage(e)}}/>
                 <div style={{display: 'grid', gap: '12px', gridTemplateColumns: '1fr 1fr'}}>
                     {
-                        images.map(item => (
-                            <Paper elevation={3} className="paper-recipe-box" style={{aspectRatio: '1 / 1',
+                        Object.keys(images).map(name => (
+                            <Paper elevation={3} className="paper-recipe-box" key={name} style={{aspectRatio: '1 / 1',
                                 borderRadius: '7px', overflow: 'hidden', position: 'relative',
                                 justifyContent: 'space-between', display: 'flex', alignItems: 'center', flexDirection: 'column'
                             }}>
-                                <img style={{width: '100%', height: '100%', objectFit: 'cover'}} src={item} alt='food'/>
+                                <img style={{width: '100%', height: '100%', objectFit: 'cover'}} src={images[name]} alt='food'/>
                             </Paper>
                         ))
                     }
@@ -114,7 +110,7 @@ export const Widget = recipesConnect(({userId, setImages, recipeData, images, de
 })
 
 export const ToPost = () => {
-    const [images, setImages] = useState([])
+    const [images, setImages] = useState({})
     const [description, setDescription] = useState('')
     const recipeData = useSelector(state => state.newRecipe)
     const userId = useSelector(state => state.user.id)
