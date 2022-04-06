@@ -27,7 +27,7 @@ const Widget = productsConnect(({isLoading, toggleClass, setInputValue, inputVal
     }
 
     const addNewProduct = () => {
-        Axios.post('/products/insert', {
+        Axios.post('https://cookery-app.herokuapp.com/products/insert', {
             productName: inputValue
         }).then(() => {
         })
@@ -93,7 +93,7 @@ export const ListOfProducts = ({toggleClass}) => {
 
         if (Object.keys(selector).length === 0) {
             setIsLoading(true)
-            Axios.get('/products/get').then((response) => {
+            Axios.get('https://cookery-app.herokuapp.com/products/get').then((response) => {
                 let index = 0
                 for (let prod of response.data) {
                     if (prod.name) {

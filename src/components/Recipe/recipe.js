@@ -89,11 +89,11 @@ export const RecipeInfo = recipesConnect(({page, id, starRecipeRecipe}) => {
     const starFunction = () => {
         if (user.loged) {
             if (starred) {
-                Axios.post('/recipes/likes/update', {
+                Axios.post('https://cookery-app.herokuapp.com/recipes/likes/update', {
                     recipeId: recipeId, type: -1, userId: user.id
                 }).then((response) => {})
             } else {
-                Axios.post('/recipes/likes/update', {
+                Axios.post('https://cookery-app.herokuapp.com/recipes/likes/update', {
                     recipeId: recipeId, type: 1, userId: user.id
                 }).then((response) => {})}
         
@@ -132,7 +132,7 @@ export const RecipeInfo = recipesConnect(({page, id, starRecipeRecipe}) => {
                             <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px'}}> 
                             {
                                 Object.values(recipeMain.images).map((name) => (
-                                    <img style={{width: '100%', height: '100%', objectFit: 'cover', borderRadius: '5px'}} key={name} src={`/reciepes/${name}`} alt='food'/>
+                                    <img style={{width: '100%', height: '100%', objectFit: 'cover', borderRadius: '5px'}} key={name} src={`https://cookery-app.herokuapp.com/reciepes/${name}`} alt='food'/>
                                 ))
                             }
                             </div>
@@ -163,7 +163,7 @@ export const RecipeInfo = recipesConnect(({page, id, starRecipeRecipe}) => {
                             <GalleryImagesOnly> 
                             {
                                 Object.values(recipeMain.images).map((name) => (
-                                    <img style={{width: '100%', height: '100%', objectFit: 'cover', borderRadius: '5px'}} key={name} src={`/reciepes/${name}`} alt='food'/>
+                                    <img style={{width: '100%', height: '100%', objectFit: 'cover', borderRadius: '5px'}} key={name} src={`https://cookery-app.herokuapp.com/reciepes/${name}`} alt='food'/>
                                 ))
                             }
                             </GalleryImagesOnly>

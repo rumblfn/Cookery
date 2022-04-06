@@ -88,7 +88,7 @@ export const Widget = recipesConnect(({userId, setImages, recipeData, images, de
                                 borderRadius: '7px', overflow: 'hidden', position: 'relative',
                                 justifyContent: 'space-between', display: 'flex', alignItems: 'center', flexDirection: 'column'
                             }}>
-                                <img style={{width: '100%', height: '100%', objectFit: 'cover'}} src={images[name]} alt='food'/>
+                                <img style={{width: '100%', height: '100%', objectFit: 'cover'}} src={`https://cookery-app.herokuapp.com/${images[name]}`} alt='food'/>
                             </Paper>
                         ))
                     }

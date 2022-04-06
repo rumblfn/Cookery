@@ -116,7 +116,7 @@ export const recipesReducer = (state = initialState, action) => {
                 paths.push(image_path)
                 images[image_path] = action.payload.images[item]
             })
-            Axios.post('/reciepes/insert', {
+            Axios.post('https://cookery-app.herokuapp.com/reciepes/insert', {
                 ...action.payload, images: JSON.stringify(images)
             }).then((res) => {
                 if (res) {

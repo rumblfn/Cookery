@@ -24,7 +24,7 @@ export const Widget = ({userRecipes, largePhone}) => {
     useEffect(() => {
         if (Object.values(selector).length === 0) {
             setIsLoading(true)
-            Axios.get('/user/reciepes/get', {
+            Axios.get('https://cookery-app.herokuapp.com/user/reciepes/get', {
                 params: { id: userId }
             }).then((response) => {
                 setIsLoading(false)
@@ -63,7 +63,7 @@ export const Widget = ({userRecipes, largePhone}) => {
                                 justifyContent: 'space-between', display: 'flex', alignItems: 'center', flexDirection: 'column'
                             }}>
                                 {Object.values(item.images).length > 0 ? 
-                                    <img style={{width: '100%', height: '100%', objectFit: 'cover'}} src={`/reciepes/${item.images[0]}`} alt='food'/>
+                                    <img style={{width: '100%', height: '100%', objectFit: 'cover'}} src={`https://cookery-app.herokuapp.com/reciepes/${item.images[0]}`} alt='food'/>
                                     : <div style={{backgroundColor: 'black', width: '100%', height: '100%', position: 'relative'}}/>
                                 }
                                 <div className="overlay">

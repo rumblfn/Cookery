@@ -75,7 +75,7 @@ export const HomePage = () => {
 
     const selectNewRecipes = () => {
         if (selectedRecipes.length) {
-            Axios.get('/recipes_by_products/get', {
+            Axios.get('https://cookery-app.herokuapp.com/recipes_by_products/get', {
                 params: {
                     products: selectedRecipes
                 }
@@ -91,7 +91,7 @@ export const HomePage = () => {
 
     const setSearchFieldFunc = (val) => {
         setSearchField(val)
-        Axios.get('/recipes_by_title/get', {
+        Axios.get('https://cookery-app.herokuapp.com/recipes_by_title/get', {
             params: {
                 title: searchField.toLowerCase()
             }

@@ -32,7 +32,7 @@ export const Registration = () => {
     };
 
     const signUp = () => {
-        Axios.post('/users/insert', {
+        Axios.post('https://cookery-app.herokuapp.com/users/insert', {
             userName: name,
             userEmail: email,
             userPassword: password,

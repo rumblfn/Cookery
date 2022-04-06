@@ -37,7 +37,7 @@ export const Widget = recipesConnect(({otherRecipes, timeFilter, searchField, fo
         useEffect(() => {
             if (Object.keys(recipes).length <= Object.keys(userRecipes).length) {
                 setIsLoading(true)
-                Axios.get('/recipes/get')
+                Axios.get('https://cookery-app.herokuapp.com/recipes/get')
                     .then((response) => {
                         setRicepes(response.data)
                         setIsLoading(false)
@@ -94,7 +94,7 @@ export const Widget = recipesConnect(({otherRecipes, timeFilter, searchField, fo
                             justifyContent: 'space-between', display: 'flex', alignItems: 'center', flexDirection: 'column'
                         }}>
                             {Object.values(item.images) ? 
-                                <img style={{width: '100%', height: '100%', objectFit: 'cover'}} src={`/reciepes/${item.images[0]}`} alt='food'/>
+                                <img style={{width: '100%', height: '100%', objectFit: 'cover'}} src={`https://cookery-app.herokuapp.com/reciepes/${item.images[0]}`} alt='food'/>
                                 : <div style={{backgroundColor: 'black', width: '100%', height: '100%', position: 'relative'}}/>
                             }
                             <div className="overlay">
@@ -115,7 +115,7 @@ export const Widget = recipesConnect(({otherRecipes, timeFilter, searchField, fo
                                     justifyContent: 'space-between', display: 'flex', alignItems: 'center', flexDirection: 'column'
                                 }}>
                                     {Object.values(item.images) ?
-                                        <img style={{width: '100%', height: '100%', objectFit: 'cover'}} src={`/reciepes/${item.images[0]}`} alt='food'/>
+                                        <img style={{width: '100%', height: '100%', objectFit: 'cover'}} src={`https://cookery-app.herokuapp.com/reciepes/${item.images[0]}`} alt='food'/>
                                         : <div style={{backgroundColor: 'black', width: '100%', height: '100%', position: 'relative'}}/>
                                     }
                                     <div className="overlay">

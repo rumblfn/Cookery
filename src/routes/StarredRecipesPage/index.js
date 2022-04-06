@@ -16,7 +16,7 @@ export const StarredRecipesPage = () => {
             setIsLoading(false)
         } else {
             setIsLoading(true)
-            Axios.get('/starredRecipes/get', {
+            Axios.get('https://cookery-app.herokuapp.com/starredRecipes/get', {
                 params: {
                     recipesIdes: userData.likedPostsIdes
                 }

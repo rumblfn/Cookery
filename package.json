@@ -1,8 +1,6 @@
 {
   "homepage": "https://rumblfn.github.io/Cookery/#/Cookery",
   "name": "my-app",
-  "proxyHeroku": "",
-  "proxy": "https://cookery-app.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
