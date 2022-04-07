@@ -63,8 +63,6 @@ export const Widget = recipesConnect(({otherRecipes, timeFilter, searchField, fo
         return a - b;
     };
 
-    const arr = []
-
     const recipesPreparation = [...Object.values(newRecipes)]
     const recipesIds = []
     for (let recipe of recipesPreparation) {
@@ -87,7 +85,7 @@ export const Widget = recipesConnect(({otherRecipes, timeFilter, searchField, fo
     return (
         <div>
             <div style={css}>
-                {recipesPreparation.map(item => (item.title.toLowerCase().includes(searchField) ?
+                {!allRecipesBool ? recipesPreparation.map(item => (item.title.toLowerCase().includes(searchField) ?
                     <Link to={`/recipes/${item.id}/${allRecipesBool === 'starred' ? 'starred' : 'all'}`} key={item.id}>
                         <Paper elevation={3} className="paper-recipe-box" style={{
                             borderRadius: '7px', height: '200px', overflow: 'hidden', position: 'relative',
@@ -102,12 +100,28 @@ export const Widget = recipesConnect(({otherRecipes, timeFilter, searchField, fo
                             </div>
                         </Paper>
                     </Link>
-                : null))}
+                : null)) :
+                    Object.values(newRecipes).map(item => (
+                        <Link to={`/recipes/${item.id}/${allRecipesBool === 'starred' ? 'starred' : 'all'}`} key={item.id}>
+                            <Paper elevation={3} className="paper-recipe-box" style={{
+                                borderRadius: '7px', height: '200px', overflow: 'hidden', position: 'relative',
+                                justifyContent: 'space-between', display: 'flex', alignItems: 'center', flexDirection: 'column'
+                            }}>
+                                {Object.values(item.images) ?
+                                    <img style={{width: '100%', height: '100%', objectFit: 'cover'}} src={`https://cookery-app.herokuapp.com/reciepes/${item.images[0]}`} alt='food'/>
+                                    : <div style={{backgroundColor: 'black', width: '100%', height: '100%', position: 'relative'}}/>
+                                }
+                                <div className="overlay">
+                                    <div className="text">{item.title}</div>
+                                </div>
+                            </Paper>
+                        </Link>))
+                }
             </div>
             <div>
-                {otherRecipes.length !== 0 && <h4 style={{marginTop: '36px'}}>Другие рецепты...</h4>}
+                {!allRecipesBool && otherRecipes.length !== 0 && <h4 style={{marginTop: '36px'}}>Другие рецепты...</h4>}
                 <div style={css}>
-                    {
+                    {!allRecipesBool &&
                         otherRecipes.filter(item => !recipesIds.includes(item.id)).map(item => (
                             <Link to={`/recipes/${item.id}/${allRecipesBool === 'starred' ? 'starred' : 'all'}`} key={item.id}>
                                 <Paper elevation={3} className="paper-recipe-box" style={{

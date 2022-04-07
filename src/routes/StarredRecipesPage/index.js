@@ -11,6 +11,7 @@ export const StarredRecipesPage = () => {
     const dispatch = useDispatch()
     const userData = useSelector((state) => state.user)
     useEffect(() => {
+        console.log(userData.likedPostsIdes)
         if (!userData.likedPostsIdes.length) {
             setEmptyRecipes(true)
             setIsLoading(false)
